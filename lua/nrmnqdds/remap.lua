@@ -1,4 +1,6 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- move lines
@@ -10,6 +12,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("i", "<C-d>", "<C-d>zz")
 vim.keymap.set("i", "<C-u>", "<C-u>zz")
+
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 -- paste without copying the text
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -23,6 +27,7 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set("n", "<leader>f", function()
   vim.lsp.buf.format()
 end)
+
 
 -- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 -- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -39,20 +44,23 @@ vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references")
 
 vim.keymap.set("n", "<C-a>", "ggVG")
 
-vim.keymap.set("n", "<C-Enter>", "o")
-vim.keymap.set("n", "<C-S-Enter>", "O")
-vim.keymap.set("i", "<C-Enter>", "<Esc>o")
-vim.keymap.set("i", "<C-S-Enter>", "<Esc>O")
-
 vim.keymap.set("i", "<C-s>", function()
   vim.cmd("w")
 end)
+
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
+
+vim.keymap.set("n", "<C-Enter>", "o")
+vim.keymap.set("n", "<C-S-Enter>", "O")
+vim.keymap.set("i", "<C-Enter>", "<Esc>o")
+vim.keymap.set("i", "<C-S-Enter>", "<Esc>O")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("v", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

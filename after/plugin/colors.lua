@@ -1,4 +1,4 @@
-require("tokyonight").setup{
+require("tokyonight").setup {
   transparent = true,
   styles = {
     sidebars = "transparent",
@@ -6,4 +6,4 @@ require("tokyonight").setup{
   }
 }
 
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd [[colorscheme tokyonight]]
