@@ -22,6 +22,10 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
+vim.keymap.set("i", "<Esc>", "<C-c>")
+vim.keymap.set("v", "<Esc>", "<C-c>")
+vim.keymap.set("x", "<Esc>", "<C-c>")
+
 -- format file
 -- vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
 vim.keymap.set("n", "<leader>f", function()
@@ -51,11 +55,20 @@ end)
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 
+-- this is for kitty terminal
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking text",
+  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
 
 vim.keymap.set("n", "<C-Enter>", "o")
 vim.keymap.set("n", "<C-S-Enter>", "O")

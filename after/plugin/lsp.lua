@@ -19,7 +19,12 @@ end)
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = { 'tsserver', 'rust_analyzer', 'biome' },
+  ensure_installed = {
+    'tsserver',
+    'rust_analyzer',
+    'biome',
+    'gopls'
+  },
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()
@@ -33,6 +38,7 @@ require('lspconfig').tsserver.setup {}
 require('lspconfig').rust_analyzer.setup {}
 require('lspconfig').biome.setup {}
 require('lspconfig').tailwindcss.setup {}
+require('lspconfig').gopls.setup {}
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
