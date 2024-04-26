@@ -12,6 +12,32 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 return require('lazy').setup({
+  install = {
+    missing = true,
+    colorscheme = { "catppuccin", "habamax" }
+  },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+  change_detection = {
+    enabled = true,
+    notify = false,
+  },
+  ui = {
+    -- border = "rounded"
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
 
   {
     "folke/tokyonight.nvim",
@@ -22,9 +48,19 @@ return require('lazy').setup({
 
   {
     'nvim-telescope/telescope.nvim',
+    cmd = 'Telescope',
+    lazy = true,
     tag = '0.1.6',
     -- or                            , branch = '0.1.x',
-    dependencies = { { 'nvim-lua/plenary.nvim' } }
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "nvim-telescope/telescope-ui-select.nvim",
+      -- "telescope-dap.nvim",
+      -- "kkharji/sqlite.lua",
+      -- "nvim-telescope/telescope-frecency.nvim",
+    },
   },
 
   {
@@ -104,7 +140,12 @@ return require('lazy').setup({
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
+    },
+    event = "VeryLazy",
+    keys = {
+      { "<leader>e",     ":Neotree toggle float<CR>", silent = true, desc = "Float File Explorer" },
+      { "<leader><tab>", ":Neotree toggle left<CR>",  silent = true, desc = "Left File Explorer" },
+    },
   },
 
   {

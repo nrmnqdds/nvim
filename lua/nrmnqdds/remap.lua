@@ -7,6 +7,10 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+-- Fast saving
+vim.keymap.set("n", "<Leader>w", ":write!<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<Leader>q", ":q!<CR>", { noremap = true, silent = true })
+
 -- scroll without moving the cursor
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
