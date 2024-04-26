@@ -46,6 +46,8 @@ return require('lazy').setup({
     opts = {},
   },
 
+  "mfussenegger/nvim-dap",
+
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
@@ -55,9 +57,9 @@ return require('lazy').setup({
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "natecraddock/telescope-zf-native.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
-      -- "telescope-dap.nvim",
+      "nvim-telescope/telescope-dap.nvim",
       -- "kkharji/sqlite.lua",
       -- "nvim-telescope/telescope-frecency.nvim",
     },
@@ -123,6 +125,8 @@ return require('lazy').setup({
 
   "rafamadriz/friendly-snippets",
 
+  "SmiteshP/nvim-navic",
+  "LunarVim/breadcrumbs.nvim",
 
   {
     "windwp/nvim-autopairs",
@@ -165,11 +169,11 @@ return require('lazy').setup({
 
   "nvim-lua/plenary.nvim",
 
-  {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { { "nvim-lua/plenary.nvim" } }
-  },
+  -- {
+  --   "ThePrimeagen/harpoon",
+  --   branch = "harpoon2",
+  --   dependencies = { { "nvim-lua/plenary.nvim" } }
+  -- },
 
   {
     "kylechui/nvim-surround",
@@ -209,5 +213,10 @@ return require('lazy').setup({
 
   "lewis6991/gitsigns.nvim",
 
-  "github/copilot.vim"
+  "github/copilot.vim",
+
+  {
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+  }
 })
