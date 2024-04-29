@@ -63,7 +63,8 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  -- vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
 local api = vim.api
@@ -130,23 +131,25 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("v", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- restore the session for the current directory
-vim.api.nvim_set_keymap("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], {})
+vim.keymap.set("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], {})
 
 -- restore the last session
-vim.api.nvim_set_keymap("n", "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]], {})
+vim.keymap.set("n", "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]], {})
 
 -- stop Persistence => session won't be saved on exit
-vim.api.nvim_set_keymap("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]], {})
+vim.keymap.set("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]], {})
 
 -- search current buffer
-map("n", "<C-s>", ":Telescope current_buffer_fuzzy_find<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-s>", ":Telescope current_buffer_fuzzy_find<CR>", { noremap = true, silent = true })
 
 -- search modified files
-map("n", "<Leader>m", ":Telescope git_status<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<Leader>m", ":Telescope git_status<CR>", { noremap = true, silent = true })
 
 -- Split line with X
-map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", { silent = true })
+vim.keymap.set("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", { silent = true })
 
 -- Navigate buffers
-map("n", "<C-j>", ":bnext<CR>", { silent = true })
-map("n", "<C-k>", ":bprevious<CR>", { silent = true })
+vim.keymap.set("n", "<C-j>", ":bnext<CR>", { silent = true })
+vim.keymap.set("n", "<C-k>", ":bprevious<CR>", { silent = true })
+
+vim.keymap.map("n", "<Esc>", ":nohlsearch<CR>", { silent = true })

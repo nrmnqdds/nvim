@@ -1,45 +1,15 @@
--- require('neo-tree').setup({
---   filesystem = {
---     follow_current_file = {
---       enabled = true,
---       leave_dirs_open = false
---     },
---     filtered_items = {
---       visible = true,
---       show_hidden_count = true,
---       hide_dotfiles = false,
---       hide_gitignore = false
---     }
---   },
---   default_component_configs = {
---     git_status = {
---       symbols = {
---         added = "+",
---         modified = "!",
---         deleted = "-",
---         renamed = "»",
---
---         untracked = "?",
---         ignored = "x",
---         unstaged = "!",
---         staged = "+",
---         conflicted = "~"
---       }
---     }
---   },
---   close_if_last_window = true,
---   window = {
---     position = "right"
---   },
--- })
+local neotree = require("neo-tree")
 
-require("neo-tree").setup({
+neotree.setup({
+  -- use_float = true,
+  -- use_image_nnvim = true,
   close_if_last_window = true,
   popup_border_style = "single",
   enable_git_status = true,
   enable_modified_markers = true,
   enable_diagnostics = true,
   sort_case_insensitive = true,
+
   default_component_configs = {
     indent = {
       with_markers = true,
@@ -74,6 +44,9 @@ require("neo-tree").setup({
   window = {
     position = "float",
     width = 35,
+    mappings = {
+      ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+    }
   },
   filesystem = {
     use_libuv_file_watcher = true,
