@@ -133,6 +133,7 @@ vim.keymap.set("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> norm
 -- Navigate buffers
 vim.keymap.set("n", "<C-j>", ":bnext<CR>", { silent = true })
 vim.keymap.set("n", "<C-k>", ":bprevious<CR>", { silent = true })
+vim.keymap.set("n", "<leader>d", ":bd<CR>", { silent = true })
 
 -- Close highlighted search
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { silent = true })

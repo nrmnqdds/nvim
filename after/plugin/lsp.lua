@@ -38,7 +38,6 @@ require('lspconfig').tsserver.setup {}
 require('lspconfig').rust_analyzer.setup {}
 require('lspconfig').biome.setup {}
 require('lspconfig').tailwindcss.setup {}
-require('lspconfig')['python-lsp-server'].setup {}
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
