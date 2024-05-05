@@ -3,7 +3,6 @@ local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 local telescope = require("telescope")
 
-telescope.setup({})
 telescope.load_extension("ui-select")
 telescope.load_extension("zf-native")
 telescope.load_extension("dap")
@@ -19,14 +18,14 @@ vim.keymap.set('n', '<C-e>', function()
     initial_mode = "normal",
     attach_mappings = function(prompt_bufnr, map)
       local delete_buf = function()
-        local selection = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
-        vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+        local current_picker = action_state.get_current_picker(prompt_bufnr)
+        current_picker:delete_selection(function(selection)
+          vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+        end)
       end
 
       map('n', '<c-d>', delete_buf)
 
-      -- builtin.buffers(require('telescope.themes').get_dropdown())
       return true
     end
   }, {
