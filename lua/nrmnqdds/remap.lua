@@ -24,12 +24,12 @@ vim.keymap.set("i", "<C-u>", "<C-u>zz")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 -- paste without copying the text
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set({ "x", "v" }, "p", [["_dP]])
 
 -- copy to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set({ "x", "v", "n" }, "<leader>y", [["+y]])
 
-vim.keymap.set({ "i", "v", "x" }, "<Esc>", "<C-c>")
+vim.keymap.set({ "i", "v", "x" }, "<C-c>", "<Esc>")
 
 -- format file
 -- vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
@@ -139,4 +139,11 @@ vim.keymap.set("n", "<leader>d", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
 
 -- Go to previous opened buffer
-vim.keymap.set("n", "<C-b>", "<C-6>", { silent = true })
+vim.keymap.set("n", "<C-bs>", "<C-^>zz", { silent = true, noremap = true })
+
+-- Switch window
+vim.keymap.set("n", "<Tab>", "<C-w>w", { silent = true })
+
+-- Moves cursor in insert mode
+vim.keymap.set("i", "<C-l>", "<Right>", { silent = true })
+vim.keymap.set("i", "<C-h>", "<Left>", { silent = true })
