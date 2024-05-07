@@ -153,5 +153,5 @@ vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
 vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { silent = true })
 
 -- Resize window width
-vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Right>", ":vertical resize -2<CR>", { silent = true })
