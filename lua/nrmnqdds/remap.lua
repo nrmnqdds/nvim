@@ -147,3 +147,11 @@ vim.keymap.set("n", "<Tab>", "<C-w>w", { silent = true })
 -- Moves cursor in insert mode
 vim.keymap.set("i", "<C-l>", "<Right>", { silent = true })
 vim.keymap.set("i", "<C-h>", "<Left>", { silent = true })
+
+-- Resize window height
+vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { silent = true })
+
+-- Resize window width
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
