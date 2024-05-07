@@ -8,8 +8,11 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- Fast saving
-vim.keymap.set("n", "<Leader>w", ":write!<CR>", { noremap = true, silent = true })
+-- Fast format and saving
+vim.keymap.set("n", "<Leader>w", function()
+  vim.lsp.buf.format()
+  vim.cmd("silent! write!")
+end)
 
 -- Fast quitting
 vim.keymap.set("n", "<Leader>q", ":q!<CR>", { noremap = true, silent = true })
@@ -17,8 +20,6 @@ vim.keymap.set("n", "<Leader>q", ":q!<CR>", { noremap = true, silent = true })
 -- scroll without moving the cursor
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("i", "<C-d>", "<C-d>zz")
-vim.keymap.set("i", "<C-u>", "<C-u>zz")
 
 -- enter normal mode in terminal
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
@@ -32,10 +33,9 @@ vim.keymap.set({ "x", "v", "n" }, "<leader>y", [["+y]])
 vim.keymap.set({ "i", "v", "x" }, "<C-c>", "<Esc>")
 
 -- format file
--- vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>")
-vim.keymap.set("n", "<leader>f", function()
-  vim.lsp.buf.format()
-end)
+-- vim.keymap.set("n", "<leader>f", function()
+--   vim.lsp.buf.format()
+-- end)
 
 -- trouble plugin
 vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
