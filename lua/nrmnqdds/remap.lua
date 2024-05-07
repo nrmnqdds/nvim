@@ -33,9 +33,9 @@ vim.keymap.set({ "x", "v", "n" }, "<leader>y", [["+y]])
 vim.keymap.set({ "i", "v", "x" }, "<C-c>", "<Esc>")
 
 -- format file
--- vim.keymap.set("n", "<leader>f", function()
---   vim.lsp.buf.format()
--- end)
+vim.keymap.set("n", "<leader>f", function()
+  vim.lsp.buf.format()
+end)
 
 -- trouble plugin
 vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
