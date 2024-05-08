@@ -258,5 +258,7 @@ return require('lazy').setup({
         desc = 'Create a selection for selected text or word under the cursor',
       },
     },
-  }
+  },
+
+  "nvimtools/none-ls.nvim"
 })

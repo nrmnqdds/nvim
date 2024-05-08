@@ -36,7 +36,23 @@ require('mason-lspconfig').setup({
   }
 })
 
-require('lspconfig').tsserver.setup {}
+local function organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = { vim.api.nvim_buf_get_name(0) },
+    title = ""
+  }
+  vim.lsp.buf.execute_command(params)
+end
+
+require('lspconfig').tsserver.setup {
+  commands = {
+    OrganizeImports = {
+      organize_imports,
+      description = "Organize Imports"
+    }
+  }
+}
 require('lspconfig').rust_analyzer.setup {}
 require('lspconfig').biome.setup {}
 require('lspconfig').gopls.setup {}
