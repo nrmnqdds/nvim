@@ -1,64 +1,102 @@
+local map = vim.keymap.set
+local opt = { noremap = true, silent = true }
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- open netrw file explorer
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+map("n", "<leader>pv", vim.cmd.Ex, opt)
 
 -- move lines
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv", opt)
+map("v", "K", ":m '<-2<CR>gv=gv", opt)
 
 -- Fast format and saving
-vim.keymap.set("n", "<Leader>w", function()
+map("n", "<Leader>w", function()
   vim.lsp.buf.format()
   vim.cmd("silent! write!")
-end)
+end, opt)
 
 -- Fast quitting
-vim.keymap.set("n", "<Leader>q", ":q!<CR>", { noremap = true, silent = true })
+map("n", "<Leader>q", ":q!<CR>", { noremap = true, silent = true }, opt)
 
 -- scroll without moving the cursor
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+map("n", "<C-d>", "<C-d>zz", opt)
+map("n", "<C-u>", "<C-u>zz", opt)
 
 -- enter normal mode in terminal
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+map("t", "<Esc>", "<C-\\><C-n>", opt)
 
 -- paste without copying the text
-vim.keymap.set({ "x", "v" }, "p", [["_dP]])
+map({ "x", "v" }, "p", [["_dP]], opt)
 
 -- copy to system clipboard
-vim.keymap.set({ "x", "v", "n" }, "<leader>y", [["+y]])
+map({ "x", "v", "n" }, "<leader>y", [["+y]], opt)
 
-vim.keymap.set({ "i", "v", "x" }, "<C-c>", "<Esc>")
+map({ "i", "v", "x" }, "<C-c>", "<Esc>", opt)
 
 -- format file
-vim.keymap.set("n", "<leader>f", function()
+map("n", "<leader>f", function()
   vim.lsp.buf.format()
-end)
+end, opt)
 
 -- trouble plugin
-vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
-vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
+map("n", "<leader>xx", function() require("trouble").toggle() end, opt)
+map("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, opt)
+map("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end, opt)
+map("n", "<leader>xq", function() require("trouble").toggle("quickfix") end, opt)
+map("n", "<leader>xl", function() require("trouble").toggle("loclist") end, opt)
+map("n", "gR", function() require("trouble").toggle("lsp_references") end, opt)
 
 -- select all
-vim.keymap.set("n", "<C-a>", "ggVG")
+map("n", "<C-a>", "ggVG", opt)
 
--- move between windows
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
+-- Move to start/end of line
+map({ "n", "x", "o" }, "H", "^", opt)
+map({ "n", "x", "o" }, "L", "g_", opt)
 
--- this is for kitty terminal
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true }
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  -- vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-  vim.keymap.set(mode, lhs, rhs, options)
-end
+-- Enter new line below in insert mode
+map("n", "<C-Enter>", "o", opt)
+map("n", "<C-S-Enter>", "O", opt)
+
+-- Enter new line above in insert mode
+map("i", "<C-Enter>", "<Esc>o", opt)
+map("i", "<C-S-Enter>", "<Esc>O", opt)
+
+-- search and replace
+map({ "n", "v" }, "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opt)
+
+-- search current buffer
+map("n", "<C-s>", ":Telescope current_buffer_fuzzy_find<CR>", opt)
+
+-- Split line with X
+map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", opt)
+
+-- Navigate buffers
+map("n", "<C-j>", ":bnext<CR>", opt)
+map("n", "<C-k>", ":bprevious<CR>", opt)
+map("n", "<leader>d", ":bd<CR>", opt)
+
+-- Close highlighted search
+map("n", "<Esc>", ":nohlsearch<CR>", opt)
+
+-- Go to previous opened buffer
+map("n", "<C-bs>", "<C-^>zz", opt)
+
+-- Switch window
+map("n", "<Tab>", "<C-w>w", opt)
+
+-- Moves cursor in insert mode
+map("i", "<C-l>", "<Right>", opt)
+map("i", "<C-h>", "<Left>", opt)
+
+-- Resize window height
+map("n", "<C-Up>", ":resize -2<CR>", opt)
+map("n", "<C-Down>", ":resize +2<CR>", opt)
+
+-- Resize window width
+map("n", "<C-Left>", ":vertical resize +2<CR>", opt)
+map("n", "<C-Right>", ":vertical resize -2<CR>", opt)
 
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -112,46 +150,3 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
-
--- Enter new line below in insert mode
-vim.keymap.set("n", "<C-Enter>", "o")
-vim.keymap.set("n", "<C-S-Enter>", "O")
-
--- Enter new line above in insert mode
-vim.keymap.set("i", "<C-Enter>", "<Esc>o")
-vim.keymap.set("i", "<C-S-Enter>", "<Esc>O")
-
--- search and replace
-vim.keymap.set({ "n", "v" }, "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
--- search current buffer
-vim.keymap.set("n", "<C-s>", ":Telescope current_buffer_fuzzy_find<CR>", { noremap = true, silent = true })
-
--- Split line with X
-vim.keymap.set("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", { silent = true })
-
--- Navigate buffers
-vim.keymap.set("n", "<C-j>", ":bnext<CR>", { silent = true })
-vim.keymap.set("n", "<C-k>", ":bprevious<CR>", { silent = true })
-vim.keymap.set("n", "<leader>d", ":bd<CR>", { silent = true })
-
--- Close highlighted search
-vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
-
--- Go to previous opened buffer
-vim.keymap.set("n", "<C-bs>", "<C-^>zz", { silent = true, noremap = true })
-
--- Switch window
-vim.keymap.set("n", "<Tab>", "<C-w>w", { silent = true })
-
--- Moves cursor in insert mode
-vim.keymap.set("i", "<C-l>", "<Right>", { silent = true })
-vim.keymap.set("i", "<C-h>", "<Left>", { silent = true })
-
--- Resize window height
-vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", { silent = true })
-
--- Resize window width
-vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Right>", ":vertical resize -2<CR>", { silent = true })

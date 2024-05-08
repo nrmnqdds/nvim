@@ -24,6 +24,8 @@ require('mason-lspconfig').setup({
     'rust_analyzer',
     'biome',
     'gopls',
+    'tailwindcss',
+    'volar'
   },
   handlers = {
     lsp_zero.default_setup,
@@ -37,7 +39,9 @@ require('mason-lspconfig').setup({
 require('lspconfig').tsserver.setup {}
 require('lspconfig').rust_analyzer.setup {}
 require('lspconfig').biome.setup {}
+require('lspconfig').gopls.setup {}
 require('lspconfig').tailwindcss.setup {}
+require('lspconfig').volar.setup {}
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
