@@ -6,6 +6,7 @@ local telescope = require("telescope")
 telescope.load_extension("ui-select")
 telescope.load_extension("zf-native")
 telescope.load_extension("dap")
+telescope.load_extension("media_files")
 
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
 vim.keymap.set('n', '<C-p>fs', builtin.git_files, {})

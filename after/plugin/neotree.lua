@@ -1,8 +1,8 @@
 local neotree = require("neo-tree")
 
 neotree.setup({
-  -- use_float = true,
-  -- use_image_nnvim = true,
+  use_float = true,
+  use_image_nnvim = true,
   close_if_last_window = true,
   popup_border_style = "single",
   enable_git_status = true,

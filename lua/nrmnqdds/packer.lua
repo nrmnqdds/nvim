@@ -60,6 +60,7 @@ return require('lazy').setup({
       "natecraddock/telescope-zf-native.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "nvim-telescope/telescope-dap.nvim",
+      "nvim-telescope/telescope-media-files.nvim",
       -- "kkharji/sqlite.lua",
       -- "nvim-telescope/telescope-frecency.nvim",
     },
@@ -97,6 +98,7 @@ return require('lazy').setup({
   {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+    "jay-babu/mason-nvim-dap.nvim",
     "neovim/nvim-lspconfig",
   },
 
@@ -150,7 +152,7 @@ return require('lazy').setup({
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
-      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+      "3rd/image.nvim",              -- Optional image support in preview window: See `# Preview Mode` for more information
     },
     event = "VeryLazy",
     keys = {
@@ -193,7 +195,11 @@ return require('lazy').setup({
     end
   },
 
-  "lukas-reineke/indent-blankline.nvim",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {}
+  },
 
   {
     'nvim-lualine/lualine.nvim',
@@ -240,25 +246,20 @@ return require('lazy').setup({
     -- See Commands section for default commands if you want to lazy load on them
   },
 
-  "3rd/image.nvim",
+  "nvimtools/none-ls.nvim",
 
   {
-    "smoka7/multicursors.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      'smoka7/hydra.nvim',
-    },
-    opts = {},
-    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+    "mistricky/codesnap.nvim",
+    build = "make build_generator",
     keys = {
-      {
-        mode = { 'v', 'n' },
-        '<Leader>m',
-        '<cmd>MCstart<cr>',
-        desc = 'Create a selection for selected text or word under the cursor',
-      },
+      { "<leader>cc", "<cmd>CodeSnap<cr>",     mode = "x", desc = "Save selected code snapshot into clipboard" },
+      { "<leader>cs", "<cmd>CodeSnapSave<cr>", mode = "x", desc = "Save selected code snapshot in ~/Pictures" },
+    },
+    opts = {
+      save_path = "~/Pictures/codesnap/",
+      has_breadcrumbs = true,
+      bg_theme = "bamboo",
+      watermark = "",
     },
   },
-
-  "nvimtools/none-ls.nvim"
 })
