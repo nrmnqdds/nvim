@@ -49,7 +49,7 @@ map("n", "<leader>xl", function() require("trouble").toggle("loclist") end, opt)
 map("n", "gR", function() require("trouble").toggle("lsp_references") end, opt)
 
 -- select all
-map("n", "<C-a>", "ggVG", opt)
+map("n", "<C-a>", "gg<S-v>G", opt)
 
 -- Move to start/end of line
 map({ "n", "x", "o" }, "H", "^", opt)
@@ -97,6 +97,8 @@ map("n", "<C-Down>", ":resize +2<CR>", opt)
 -- Resize window width
 map("n", "<C-Left>", ":vertical resize +2<CR>", opt)
 map("n", "<C-Right>", ":vertical resize -2<CR>", opt)
+
+map("n", ";", ":", opt)
 
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -150,15 +152,3 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  callback = function()
-    -- try_lint without arguments runs the linters defined in `linters_by_ft`
-    -- for the current filetype
-    require("lint").try_lint()
-
-    -- You can call `try_lint` with a linter name or a list of names to always
-    -- run specific linters, independent of the `linters_by_ft` configuration
-    require("lint").try_lint("cspell")
-  end,
-})

@@ -45,14 +45,16 @@ local function organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
-require('lspconfig').tsserver.setup {
-  commands = {
-    OrganizeImports = {
-      organize_imports,
-      description = "Organize Imports"
-    }
-  }
-}
+-- require('lspconfig').tsserver.setup {
+--   commands = {
+--     OrganizeImports = {
+--       organize_imports,
+--       description = "Organize Imports"
+--     }
+--   }
+-- }
+
+require('lspconfig').tsserver.setup {}
 require('lspconfig').rust_analyzer.setup {}
 require('lspconfig').biome.setup {}
 require('lspconfig').gopls.setup {}

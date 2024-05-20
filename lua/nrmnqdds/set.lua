@@ -7,8 +7,12 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
-
-vim.opt.wrap = false
+vim.opt.smarttab = true
+vim.opt.ai = true -- Auto indent
+vim.opt.si = true -- Smart indent
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.backspace = "indent,eol,start"
 
 vim.opt.swapfile = false
 vim.opt.backup = false
