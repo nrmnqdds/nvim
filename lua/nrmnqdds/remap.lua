@@ -67,7 +67,10 @@ map("i", "<C-S-Enter>", "<Esc>O", opt)
 map({ "n", "v" }, "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opt)
 
 -- search current buffer
-map("n", "<C-s>", ":Telescope current_buffer_fuzzy_find<CR>", opt)
+map("n", "<C-f>", ":Telescope current_buffer_fuzzy_find<CR>", opt)
+
+-- live grep
+map("n", "<C-l>", ":Telescope live_grep<CR>", opt)
 
 -- Split line with X
 map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", opt)
@@ -89,9 +92,6 @@ map("n", "<Tab>", "<C-w>w", opt)
 -- Moves cursor in insert mode
 map("i", "<C-l>", "<Right>", opt)
 map("i", "<C-h>", "<Left>", opt)
-
-map("n", "<S-l>", "$", opt)
-map("n", "<S-h>", "_", opt)
 
 -- Resize window height
 map("n", "<C-Up>", ":resize -2<CR>", opt)

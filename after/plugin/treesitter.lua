@@ -21,12 +21,13 @@ require('nvim-treesitter.configs').setup {
     additional_vim_regex_highlighting = false,
   },
 
-  autotag = {
-    enable = true,
-  },
 }
 
-require('nvim-ts-autotag').setup()
+require('nvim-ts-autotag').setup({
+  opts = {
+    enable_close_on_slash = true
+  }
+})
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics,
@@ -34,7 +35,9 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     underline = true,
     virtual_text = {
       spacing = 5,
-      severity_limit = 'Warning',
+      severinity = {
+        min = vim.diagnostic.severity.WARN
+      }
     },
     update_in_insert = true,
   }
