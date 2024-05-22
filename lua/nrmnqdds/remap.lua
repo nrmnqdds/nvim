@@ -90,6 +90,9 @@ map("n", "<Tab>", "<C-w>w", opt)
 map("i", "<C-l>", "<Right>", opt)
 map("i", "<C-h>", "<Left>", opt)
 
+map("n", "<S-l>", "$", opt)
+map("n", "<S-h>", "_", opt)
+
 -- Resize window height
 map("n", "<C-Up>", ":resize -2<CR>", opt)
 map("n", "<C-Down>", ":resize +2<CR>", opt)
@@ -111,19 +114,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- don't auto comment new line
 vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
-
--- wrap words "softly" (no carriage return) in mail buffer
-vim.api.nvim_create_autocmd("Filetype", {
-  pattern = "mail",
-  callback = function()
-    vim.opt.textwidth = 0
-    vim.opt.wrapmargin = 0
-    vim.opt.wrap = true
-    vim.opt.linebreak = true
-    vim.opt.columns = 80
-    vim.opt.colorcolumn = "80"
-  end,
-})
 
 -- go to last loc when opening a buffer
 -- this mean that when you open a file, you will be at the last position

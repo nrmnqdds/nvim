@@ -10,7 +10,7 @@ vim.opt.smartindent = true
 vim.opt.smarttab = true
 vim.opt.ai = true -- Auto indent
 vim.opt.si = true -- Smart indent
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.opt.linebreak = true
 vim.opt.backspace = "indent,eol,start"
 
@@ -31,3 +31,5 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
+
+vim.opt.smoothscroll = true
