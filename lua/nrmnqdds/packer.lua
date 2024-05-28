@@ -168,6 +168,7 @@ return require('lazy').setup({
       local ft = require('Comment.ft')
 
       ft.set('typescriptreact', { '//%s', '{/*%s*/}' })
+      ft.set('javascriptreact', { '//%s', '{/*%s*/}' })
     end
   },
 
@@ -249,17 +250,11 @@ return require('lazy').setup({
   "nvimtools/none-ls.nvim",
 
   {
-    "mistricky/codesnap.nvim",
-    build = "make build_generator",
-    keys = {
-      { "<leader>cc", "<cmd>CodeSnap<cr>",     mode = "x", desc = "Save selected code snapshot into clipboard" },
-      { "<leader>cs", "<cmd>CodeSnapSave<cr>", mode = "x", desc = "Save selected code snapshot in ~/Pictures" },
-    },
-    opts = {
-      save_path = "~/Pictures/codesnap/",
-      has_breadcrumbs = true,
-      bg_theme = "bamboo",
-      watermark = "",
-    },
-  },
+    "rmagatti/auto-session",
+    config = function()
+      require("auto-session").setup()
+    end
+  }
+
+  ,
 })

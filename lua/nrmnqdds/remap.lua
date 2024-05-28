@@ -18,7 +18,7 @@ map("n", "<Leader>w", function()
 end, opt)
 
 -- Fast quitting
-map("n", "<Leader>q", ":q!<CR>", { noremap = true, silent = true }, opt)
+map("n", "<Leader>q", ":q!<CR>", opt)
 
 -- scroll without moving the cursor
 map("n", "<C-d>", "<C-d>zz", opt)

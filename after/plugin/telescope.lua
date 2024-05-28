@@ -8,6 +8,16 @@ telescope.load_extension("zf-native")
 telescope.load_extension("dap")
 telescope.load_extension("media_files")
 
+telescope.setup({
+  defaults = {
+    layout_config = {
+      horizontal = {
+        preview_cutoff = 0
+      }
+    }
+  }
+})
+
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
 vim.keymap.set('n', '<C-p>fs', builtin.git_files, {})
 vim.keymap.set('n', '<leader>ps', function()
