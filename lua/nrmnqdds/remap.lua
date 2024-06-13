@@ -84,7 +84,7 @@ map("n", "<leader>d", ":bd<CR>", opt)
 map("n", "<Esc>", ":nohlsearch<CR>", opt)
 
 -- Go to previous opened buffer
-map("n", "<C-bs>", "<C-^>zz", opt)
+map("n", "<C-b>", "<C-^>zz", opt)
 
 -- Switch window
 map("n", "<Tab>", "<C-w>w", opt)

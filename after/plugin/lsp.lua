@@ -26,7 +26,8 @@ require('mason-lspconfig').setup({
     'gopls',
     'tailwindcss',
     'volar',
-    'clangd'
+    'clangd',
+    'yamlls',
   },
   handlers = {
     lsp_zero.default_setup,
@@ -44,6 +45,7 @@ require('lspconfig').gopls.setup {}
 require('lspconfig').tailwindcss.setup {}
 require('lspconfig').volar.setup {}
 require('lspconfig').clangd.setup {}
+require('lspconfig').yamlls.setup {}
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -51,6 +53,12 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 -- this is the function that loads the extra snippets to luasnip
 -- from rafamadriz/friendly-snippets
 require('luasnip.loaders.from_vscode').lazy_load()
+
+local on_attach = function(client, buffer)
+  if client.name == "yamlls" then
+    client.resolved_capabilities.document_formatting = true
+  end
+end
 
 cmp.setup({
   sources = {

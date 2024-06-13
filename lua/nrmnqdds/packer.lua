@@ -162,17 +162,6 @@ return require('lazy').setup({
   },
 
   {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-      local ft = require('Comment.ft')
-
-      ft.set('typescriptreact', { '//%s', '{/*%s*/}' })
-      ft.set('javascriptreact', { '//%s', '{/*%s*/}' })
-    end
-  },
-
-  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
@@ -184,6 +173,7 @@ return require('lazy').setup({
   --   branch = "harpoon2",
   --   dependencies = { { "nvim-lua/plenary.nvim" } }
   -- },
+  'JoosepAlviste/nvim-ts-context-commentstring',
 
   {
     "kylechui/nvim-surround",
@@ -230,22 +220,22 @@ return require('lazy').setup({
 
   "github/copilot.vim",
 
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
-    dependencies = {
-      { "github/copilot.vim" },    -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-    },
-    opts = {
-      debug = true, -- Enable debugging
-      window = {
-        layout = "float"
-      }
-      -- See Configuration section for rest
-    },
-    -- See Commands section for default commands if you want to lazy load on them
-  },
+  -- {
+  --   "CopilotC-Nvim/CopilotChat.nvim",
+  --   branch = "canary",
+  --   dependencies = {
+  --     { "github/copilot.vim" },    -- or github/copilot.vim
+  --     { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+  --   },
+  --   opts = {
+  --     debug = true, -- Enable debugging
+  --     window = {
+  --       layout = "float"
+  --     }
+  --     -- See Configuration section for rest
+  --   },
+  --   -- See Commands section for default commands if you want to lazy load on them
+  -- },
 
   "nvimtools/none-ls.nvim",
 

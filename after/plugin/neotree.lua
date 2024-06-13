@@ -2,7 +2,7 @@ local neotree = require("neo-tree")
 
 neotree.setup({
   use_float = true,
-  use_image_nnvim = true,
+  use_image_nvim = true,
   close_if_last_window = true,
   popup_border_style = "single",
   enable_git_status = true,
@@ -55,6 +55,7 @@ neotree.setup({
       hide_gitignored = false,
       hide_by_name = {
         "node_modules",
+        ".git",
       },
       never_show = {
         ".DS_Store",
