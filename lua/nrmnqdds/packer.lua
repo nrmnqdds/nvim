@@ -244,7 +244,7 @@ return require('lazy').setup({
     config = function()
       require("auto-session").setup()
     end
-  }
+  },
 
-  ,
+  "davidosomething/format-ts-errors.nvim"
 })
