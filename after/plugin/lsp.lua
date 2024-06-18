@@ -1,4 +1,10 @@
 local lsp_zero = require('lsp-zero')
+local cmp = require('cmp')
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
+-- this is the function that loads the extra snippets to luasnip
+-- from rafamadriz/friendly-snippets
+require('luasnip.loaders.from_vscode').lazy_load()
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- lsp_zero.on_attach(function(client, bufnr)
@@ -30,7 +36,6 @@ local on_attach = function(client, bufnr)
   local function toggle_diagnostics()
     if vim.g.diagnostics_visible then
       vim.g.diagnostics_visible = false
-      -- vim.diagnostic.disable()
       vim.diagnostic.enable(false)
     else
       vim.g.diagnostics_visible = true
@@ -196,7 +201,28 @@ require('lspconfig').volar.setup {}
 require('lspconfig').clangd.setup {}
 require('lspconfig').yamlls.setup({
   capabilities = capabilities,
-  on_attach = on_attach,
+  on_attach = function(client, buffer)
+    if client.name == "yamlls" then
+      client.resolved_capabilities.document_formatting = true
+    end
+  end,
+
+  cmp.setup({
+    sources = {
+      { name = 'path' },
+      { name = 'nvim_lsp' },
+      { name = 'nvim_lua' },
+      { name = 'luasnip', keyword_length = 2 },
+      { name = 'buffer',  keyword_length = 3 },
+    },
+    formatting = lsp_zero.cmp_format({ details = false }),
+    mapping = cmp.mapping.preset.insert({
+      ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+      ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+      ['<C-Space>'] = cmp.mapping.complete(),
+    }),
+  }),
   settings = {
     yaml = {
       schemas = {
@@ -210,32 +236,91 @@ require('lspconfig').yamlls.setup({
   },
 })
 
-local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
+-------------------------------------------
+--- diagnostics: linting and formatting ---
+-------------------------------------------
+vim.diagnostic.config({
+  virtual_text = {
+    source = true,
+    prefix = "●",
+  },
+  underline = false,
+  signs = true,
+  severity_sort = true,
+  float = {
+    border = "rounded",
+    source = true,
+    header = "",
+    prefix = "",
+    focusable = false,
+  },
+})
 
--- this is the function that loads the extra snippets to luasnip
--- from rafamadriz/friendly-snippets
-require('luasnip.loaders.from_vscode').lazy_load()
+-- local icons = require("utils").icons
+local icons = {
+  diagnostics = { Error = "✘", Warn = "", Hint = "i", Info = "i" },
+  git = {
+    Add = "+",
+    Change = "~",
+    Delete = "-",
+  },
+  kinds = {
+    Array = "󰅪",
+    Branch = "",
+    Boolean = "◩",
+    Class = "󰠱",
+    Color = "󰏘",
+    Constant = "󰏿",
+    Constructor = "",
+    Enum = "",
+    EnumMember = "",
+    Event = "",
+    Field = "󰆨",
+    File = "󰈙",
+    Folder = "󰉋",
+    Function = "ƒ",
+    Interface = "",
+    Key = "",
+    Keyword = "󰌋",
+    Method = "󰆧",
+    Module = "󰏗 ",
+    Namespace = "󰅩",
+    Number = "󰎠",
+    Null = "󰟢",
+    Object = "⦿",
+    Operator = "+",
+    Package = "󰏗",
+    Property = "󰜢",
+    Reference = "",
+    Snippet = "",
+    String = "𝓐",
+    Struct = "",
+    Text = "",
+    TypeParameter = "󰆩",
+    Unit = "",
+    Value = "󰎠",
+    Variable = "󰀫",
+  },
+  cmp_sources = {
+    nvim_lsp = "✨",
+    luasnip = "🚀",
+    buffer = "📝",
+    path = "📁",
+    cmdline = "💻",
+  },
+  statusline = {
+    Error = "❗",
+    Warn = "⚠️ ",
+    Hint = "i",
+    Info = "💡",
+  },
+}
 
-local on_attach = function(client, buffer)
-  if client.name == "yamlls" then
-    client.resolved_capabilities.document_formatting = true
-  end
+for _, type in ipairs({ "Error", "Warn", "Hint", "Info" }) do
+  vim.fn.sign_define(
+    "DiagnosticSign" .. type,
+    { name = "DiagnosticSign" .. type, text = icons.diagnostics[type], texthl = "Diagnostic" .. type }
+  )
 end
 
-cmp.setup({
-  sources = {
-    { name = 'path' },
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
-    { name = 'luasnip', keyword_length = 2 },
-    { name = 'buffer',  keyword_length = 3 },
-  },
-  formatting = lsp_zero.cmp_format({ details = false }),
-  mapping = cmp.mapping.preset.insert({
-    ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-Space>'] = cmp.mapping.complete(),
-  }),
-})
+require("lspconfig.ui.windows").default_options.border = "rounded"
