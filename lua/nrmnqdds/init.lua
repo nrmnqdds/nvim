@@ -8,6 +8,6 @@ require("pqf").setup()
 
 require("fidget").setup()
 
--- vim.keymap.set("n", "<space>f", function()
--- require("minimal-format").format_with_formatprg(0, false) end, { desc =
--- "Format current buffer, using formatprg when possible" })
+vim.cmd[[colorscheme tokyonight]]
+
+vim.o.background = "dark" -- or "light" for light mode

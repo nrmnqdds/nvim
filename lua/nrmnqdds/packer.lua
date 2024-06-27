@@ -45,6 +45,7 @@ return require('lazy').setup({
     priority = 1000,
     opts = {},
   },
+  -- { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true },
 
   "mfussenegger/nvim-dap",
 
@@ -246,5 +247,11 @@ return require('lazy').setup({
     end
   },
 
-  "davidosomething/format-ts-errors.nvim"
+  "davidosomething/format-ts-errors.nvim",
+
+  {
+    "chrisgrieser/nvim-recorder",
+    dependencies = "rcarriga/nvim-notify", -- optional
+    opts = {},                             -- required even with default settings, since it calls `setup()`
+  },
 })

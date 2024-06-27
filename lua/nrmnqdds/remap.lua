@@ -103,6 +103,8 @@ map("n", "<C-Right>", ":vertical resize -2<CR>", opt)
 
 map("n", ";", ":", opt)
 
+map({ "v", "x" }, "q", "<C-c>", opt)
+
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking text",

@@ -1,6 +1,4 @@
-local lsp_zero = require('lsp-zero')
-local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local lsp = require('lspconfig')
 
 -- this is the function that loads the extra snippets to luasnip
 -- from rafamadriz/friendly-snippets
@@ -23,14 +21,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protoc
 -- end)
 
 local on_attach = function(client, bufnr)
-  -- vim.api.nvim_set_option_value(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  -- vim.api.nvim_set_option_value(bufnr, "omnifunc", {
-  --   "v:lua.vim.lsp.omnifunc",
-  --   scope = "buffer",
-  --   buf = bufnr,
-  --   win = vim.api.nvim_get_current_win(),
-  -- })
-
   --- toggle diagnostics
   vim.g.diagnostics_visible = true
   local function toggle_diagnostics()
@@ -125,7 +115,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set(
     "n",
     "<leader>a",
-    "<cmd>CodeActionMenu<CR>",
+    function() vim.lsp.buf.code_action() end,
     vim.tbl_extend("force", bufopts, { desc = "✨lsp code action" })
   )
 end
@@ -138,19 +128,11 @@ require('mason-lspconfig').setup({
     'tsserver',
     'rust_analyzer',
     'biome',
-    'gopls',
     'tailwindcss',
     'volar',
-    'clangd',
     'yamlls',
+    'lua_ls'
   },
-  handlers = {
-    lsp_zero.default_setup,
-    lua_ls = function()
-      local lua_opts = lsp_zero.nvim_lua_ls()
-      require('lspconfig').lua_ls.setup(lua_opts)
-    end,
-  }
 })
 
 require('lspconfig').tsserver.setup({
@@ -193,13 +175,34 @@ require('lspconfig').tsserver.setup({
     end,
   },
 })
-require('lspconfig').rust_analyzer.setup {}
-require('lspconfig').biome.setup {}
-require('lspconfig').gopls.setup {}
-require('lspconfig').tailwindcss.setup {}
-require('lspconfig').volar.setup {}
-require('lspconfig').clangd.setup {}
-require('lspconfig').yamlls.setup({
+lsp.rust_analyzer.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+lsp.biome.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+lsp.tailwindcss.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+lsp.volar.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+lsp.lua_ls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" }
+      }
+    }
+  }
+})
+lsp.yamlls.setup({
   capabilities = capabilities,
   on_attach = function(client, buffer)
     if client.name == "yamlls" then
@@ -207,22 +210,6 @@ require('lspconfig').yamlls.setup({
     end
   end,
 
-  cmp.setup({
-    sources = {
-      { name = 'path' },
-      { name = 'nvim_lsp' },
-      { name = 'nvim_lua' },
-      { name = 'luasnip', keyword_length = 2 },
-      { name = 'buffer',  keyword_length = 3 },
-    },
-    formatting = lsp_zero.cmp_format({ details = false }),
-    mapping = cmp.mapping.preset.insert({
-      ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-      ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-      ['<C-Space>'] = cmp.mapping.complete(),
-    }),
-  }),
   settings = {
     yaml = {
       schemas = {
@@ -244,15 +231,12 @@ vim.diagnostic.config({
     source = true,
     prefix = "●",
   },
-  underline = false,
+  underline = true,
   signs = true,
   severity_sort = true,
   float = {
     border = "rounded",
     source = true,
-    header = "",
-    prefix = "",
-    focusable = false,
   },
 })
 
