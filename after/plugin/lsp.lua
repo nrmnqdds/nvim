@@ -34,20 +34,20 @@ local on_attach = function(client, bufnr)
   end
 
   --- autocmd to show diagnostics on CursorHold
-  vim.api.nvim_create_autocmd("CursorHold", {
-    buffer = bufnr,
-    desc = "✨lsp show diagnostics on CursorHold",
-    callback = function()
-      local hover_opts = {
-        focusable = false,
-        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        border = "rounded",
-        source = "always",
-        prefix = " ",
-      }
-      vim.diagnostic.open_float(nil, hover_opts)
-    end,
-  })
+  -- vim.api.nvim_create_autocmd("CursorHold", {
+  --   buffer = bufnr,
+  --   desc = "✨lsp show diagnostics on CursorHold",
+  --   callback = function()
+  --     local hover_opts = {
+  --       focusable = false,
+  --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+  --       border = "rounded",
+  --       source = "always",
+  --       prefix = " ",
+  --     }
+  --     vim.diagnostic.open_float(nil, hover_opts)
+  --   end,
+  -- })
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "✨lsp hover for docs" }))
@@ -91,9 +91,9 @@ local on_attach = function(client, bufnr)
     vim.tbl_extend("force", bufopts, { desc = "✨lsp go to implementation" })
   )
 
-  vim.keymap.set("n", "rn", function()
-    return ":IncRename " .. vim.fn.expand("<cword>")
-  end, { expr = true })
+  vim.keymap.set("n", "<leader>vr", function()
+    vim.lsp.buf.rename()
+  end, vim.tbl_extend("force", bufopts, { desc = "✨lsp rename" }))
 
   vim.keymap.set(
     "n",
@@ -131,7 +131,9 @@ require('mason-lspconfig').setup({
     'tailwindcss',
     'volar',
     'yamlls',
-    'lua_ls'
+    'lua_ls',
+    'gopls',
+    'prismals'
   },
 })
 
@@ -187,7 +189,15 @@ lsp.tailwindcss.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+lsp.gopls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 lsp.volar.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+lsp.prismals.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })

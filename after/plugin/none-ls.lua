@@ -8,6 +8,7 @@ null_ls.setup({
         'check',
         '--apply-unsafe',
         '--formatter-enabled=true',
+        '--linter-enabled=true',
         '--organize-imports-enabled=true',
         '--skip-errors',
         '--stdin-file-path=$FILENAME',

@@ -79,6 +79,8 @@ return require('lazy').setup({
     }
   },
 
+  "mlaursen/vim-react-snippets",
+
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
