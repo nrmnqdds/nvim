@@ -200,8 +200,6 @@ return require('lazy').setup({
     dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
   },
 
-  'yorickpeterse/nvim-pqf',
-
   {
     "folke/which-key.nvim",
     config = function()
@@ -256,4 +254,6 @@ return require('lazy').setup({
     dependencies = "rcarriga/nvim-notify", -- optional
     opts = {},                             -- required even with default settings, since it calls `setup()`
   },
+
+  'dstein64/nvim-scrollview'
 })
