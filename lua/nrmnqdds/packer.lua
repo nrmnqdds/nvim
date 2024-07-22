@@ -39,13 +39,17 @@ return require('lazy').setup({
     },
   },
 
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  -- { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {},
+  -- },
+  -- { "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  -- "rebelot/kanagawa.nvim",
+
+  -- "nyoom-engineering/oxocarbon.nvim",
 
   "mfussenegger/nvim-dap",
 
@@ -255,5 +259,15 @@ return require('lazy').setup({
     opts = {},                             -- required even with default settings, since it calls `setup()`
   },
 
-  'dstein64/nvim-scrollview'
+  'dstein64/nvim-scrollview',
+
+  "luckasRanarison/tailwind-tools.nvim",
+  dependencies = { "nvim-treesitter/nvim-treesitter" },
+
+  {
+    'laytan/tailwind-sorter.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
+    build = 'cd formatter && npm ci && npm run build',
+    config = true,
+  }
 })

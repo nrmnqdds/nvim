@@ -5,7 +5,3 @@ require("nrmnqdds.set")
 require("ibl").setup()
 
 require("fidget").setup()
-
-vim.cmd [[colorscheme tokyonight]]
-
-vim.o.background = "dark" -- or "light" for light mode

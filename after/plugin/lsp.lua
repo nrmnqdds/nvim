@@ -133,6 +133,7 @@ require('mason-lspconfig').setup({
     'yamlls',
     'lua_ls',
     'gopls',
+    'dockerls',
     'prismals'
   },
 })
@@ -197,6 +198,10 @@ lsp.volar.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+lsp.dockerls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 lsp.prismals.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -214,11 +219,15 @@ lsp.lua_ls.setup({
 })
 lsp.yamlls.setup({
   capabilities = capabilities,
-  on_attach = function(client, buffer)
-    if client.name == "yamlls" then
-      client.resolved_capabilities.document_formatting = true
-    end
-  end,
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  -- on_attach = function(client, buffer)
+  --   if client.name == "yamlls" then
+  --     client.resolved_capabilities.document_formatting = true
+  --   end
+  -- end,
 
   settings = {
     yaml = {
@@ -228,8 +237,16 @@ lsp.yamlls.setup({
         ["https://json.schemastore.org/catalog-info.json"] = ".backstage/*.yaml",
         ["https://raw.githubusercontent.com/iterative/dvcyaml-schema/master/schema.json"] = "**/dvc.yaml",
         ["https://json.schemastore.org/swagger-2.0.json"] = "**/swagger.yaml",
+        -- ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml"] = "/*"
       },
     },
+    format = {
+      enable = true,
+      singleQuote = false,
+      bracketSpacing = true,
+    },
+    validate = true,
+    completion = true,
   },
 })
 
