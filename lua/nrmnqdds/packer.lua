@@ -261,6 +261,8 @@ return require('lazy').setup({
 
   'dstein64/nvim-scrollview',
 
+  "karb94/neoscroll.nvim",
+
   "luckasRanarison/tailwind-tools.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
 

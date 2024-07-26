@@ -24,8 +24,8 @@ map("n", "<Leader>qq", ":q!<CR>", opt)
 map("n", "<Leader>qa", ":qa!<CR>", opt)
 
 -- scroll without moving the cursor
-map("n", "<C-d>", "<C-d>zz", opt)
-map("n", "<C-u>", "<C-u>zz", opt)
+-- map("n", "<C-u>", "<C-u>zz", opt)
+-- map("n", "<C-d>", "<C-d>zz", opt)
 
 -- enter normal mode in terminal
 map("t", "<Esc>", "<C-\\><C-n>", opt)
