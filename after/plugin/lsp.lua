@@ -64,14 +64,14 @@ local on_attach = function(client, bufnr)
     vim.diagnostic.goto_prev()
   end, vim.tbl_extend("force", bufopts, { desc = "✨lsp go to previous diagnostic" }))
 
-  vim.keymap.set(
-    "n",
-    "gd",
-    function()
-      vim.lsp.buf.definition()
-    end,
-    vim.tbl_extend("force", bufopts, { desc = "✨lsp go to definition" })
-  )
+  -- vim.keymap.set(
+  --   "n",
+  --   "gd",
+  --   function()
+  --     vim.lsp.buf.definition()
+  --   end,
+  --   vim.tbl_extend("force", bufopts, { desc = "✨lsp go to definition" })
+  -- )
 
   vim.keymap.set(
     "n",
