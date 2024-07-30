@@ -35,3 +35,5 @@ vim.opt.cursorlineopt = "number"
 
 vim.opt.colorcolumn = "80"
 vim.opt.smoothscroll = true
+
+vim.opt.spell = false

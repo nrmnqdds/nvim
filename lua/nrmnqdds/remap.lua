@@ -55,8 +55,8 @@ map("n", "gR", function() require("trouble").toggle("lsp_references") end, opt)
 map("n", "<C-a>", "gg<S-v>G", opt)
 
 -- Move to start/end of line
--- map({ "n", "x", "o" }, "H", "^", opt)
--- map({ "n", "x", "o" }, "L", "g_", opt)
+map({ "n", "x", "o" }, "H", "^", opt)
+map({ "n", "x", "o" }, "L", "g_", opt)
 
 -- Enter new line below in insert mode
 map("n", "<C-Enter>", "o", opt)
