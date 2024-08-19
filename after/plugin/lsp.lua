@@ -138,9 +138,22 @@ require('mason-lspconfig').setup({
   },
 })
 
+-- If you are using mason.nvim, you can get the ts_plugin_path like this
+local mason_registry = require('mason-registry')
+local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path()
+
 require('lspconfig').tsserver.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  init_options = {
+    plugins = {
+      {
+        name = '@vue/typescript-plugin',
+        location = vue_language_server_path,
+        languages = { 'vue' },
+      },
+    },
+  },
   handlers = {
     ["textDocument/publishDiagnostics"] = function(
         _,
@@ -197,6 +210,11 @@ lsp.gopls.setup({
 lsp.volar.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  init_options = {
+    vue = {
+      hybridMode = false,
+    },
+  },
 })
 lsp.dockerls.setup({
   capabilities = capabilities,
