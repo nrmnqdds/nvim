@@ -33,12 +33,8 @@ vim.opt.updatetime = 50
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
 
--- Set relative line number as orange (do this after loading theme)
--- vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "grey" })
--- vim.api.nvim_set_hl(0, "LineNr", { fg = "orange" })
--- vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "grey" })
-
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = ""
 vim.opt.smoothscroll = true
 
 vim.opt.spell = false
