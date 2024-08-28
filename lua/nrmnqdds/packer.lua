@@ -1,31 +1,35 @@
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out,                            "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
 return require('lazy').setup({
   install = {
     missing = true,
-    colorscheme = { "catppuccin", "habamax" }
+    -- colorscheme = { "catppuccin", "habamax" }
+    colorscheme = { "tokyonight" },
   },
   checker = {
     enabled = true,
-    notify = false,
   },
   change_detection = {
     enabled = true,
     notify = false,
   },
   ui = {
-    -- border = "rounded"
+    border = "rounded"
   },
   performance = {
     rtp = {
@@ -39,17 +43,18 @@ return require('lazy').setup({
     },
   },
 
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {},
-  -- },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      -- load the colorscheme here
+      vim.cmd([[colorscheme tokyonight-night]])
+    end,
+  },
   -- { "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  -- "rebelot/kanagawa.nvim",
-
-  -- "nyoom-engineering/oxocarbon.nvim",
+  -- { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
   "mfussenegger/nvim-dap",
 
@@ -120,6 +125,12 @@ return require('lazy').setup({
   "L3MON4D3/LuaSnip",
   {
     'hrsh7th/nvim-cmp',
+    opts = {
+      performance = {
+        debounce = 0, -- default is 60ms
+        throttle = 0, -- default is 30ms
+      }
+    },
     config = function()
       require 'cmp'.setup {
         snippet = {
@@ -282,6 +293,32 @@ return require('lazy').setup({
     'vyfor/cord.nvim',
     build = './build',
     event = 'VeryLazy',
+    opts = {},
+  },
+
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = true,
+    dev_log = {
+      -- toggle it when you run without DAP
+      enabled = false,
+      open_cmd = "tabedit",
+    },
+  },
+
+  -- for dart syntax hightling
+  {
+    "dart-lang/dart-vim-plugin"
+  },
+
+  {
+    '0xAdk/full_visual_line.nvim',
+    keys = 'V',
     opts = {},
   }
 })

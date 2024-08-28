@@ -195,6 +195,10 @@ lsp.rust_analyzer.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+lsp.dartls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 lsp.biome.setup({
   capabilities = capabilities,
   on_attach = on_attach,

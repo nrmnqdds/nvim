@@ -13,7 +13,7 @@ map("v", "K", ":m '<-2<CR>gv=gv", opt)
 
 -- Fast format and saving
 map("n", "<Leader>w", function()
-  vim.lsp.buf.format()
+  -- vim.lsp.buf.format()
   vim.cmd("silent! write!")
 end, opt)
 
@@ -40,7 +40,7 @@ map({ "i", "v", "x" }, "<C-c>", "<Esc>", opt)
 
 -- format file
 map("n", "<leader>f", function()
-  vim.lsp.buf.format()
+  vim.lsp.buf.format{ timeout = 2000 }
 end, opt)
 
 -- trouble plugin
