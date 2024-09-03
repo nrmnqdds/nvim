@@ -18,7 +18,14 @@ telescope.setup({
   }
 })
 
-vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+-- vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+
+vim.keymap.set('n', '<leader>pf', function()
+  vim.cmd("Telescope frecency workspace=CWD")
+end)
+vim.keymap.set('n', '<leader>po', function()
+  vim.cmd("Telescope frecency")
+end)
 vim.keymap.set('n', '<C-p>fs', builtin.git_files, {})
 vim.keymap.set('n', '<leader>ps', function()
   builtin.grep_string({ search = vim.fn.input("Grep > ") });

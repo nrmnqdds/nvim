@@ -303,6 +303,13 @@ return require('lazy').setup({
     "dart-lang/dart-vim-plugin"
   },
 
-  'reisub0/hot-reload.vim'
+  'reisub0/hot-reload.vim',
+
+  {
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function()
+      require("telescope").load_extension "frecency"
+    end,
+  }
 
 })
