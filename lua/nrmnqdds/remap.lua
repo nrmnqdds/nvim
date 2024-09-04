@@ -40,7 +40,8 @@ map({ "i", "v", "x" }, "<C-c>", "<Esc>", opt)
 
 -- format file
 map("n", "<leader>f", function()
-  vim.lsp.buf.format{ timeout = 2000 }
+  -- vim.lsp.buf.format{ timeout = 2000 }
+  require("conform").format()
 end, opt)
 
 -- trouble plugin

@@ -18,11 +18,11 @@ telescope.setup({
   }
 })
 
--- vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
 
-vim.keymap.set('n', '<leader>pf', function()
-  vim.cmd("Telescope frecency workspace=CWD")
-end)
+-- vim.keymap.set('n', '<leader>pf', function()
+--   vim.cmd("Telescope frecency workspace=CWD")
+-- end)
 vim.keymap.set('n', '<leader>po', function()
   vim.cmd("Telescope frecency")
 end)

@@ -240,7 +240,11 @@ return require('lazy').setup({
   --   -- See Commands section for default commands if you want to lazy load on them
   -- },
 
-  "nvimtools/none-ls.nvim",
+  -- "nvimtools/none-ls.nvim",
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+  },
 
   {
     "rmagatti/auto-session",
