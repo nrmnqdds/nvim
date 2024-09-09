@@ -309,10 +309,18 @@ return require('lazy').setup({
 
   'reisub0/hot-reload.vim',
 
+  "nvim-telescope/telescope-frecency.nvim",
+
   {
-    "nvim-telescope/telescope-frecency.nvim",
+    "NStefan002/screenkey.nvim",
+    lazy = false,
+    version = "*", -- or branch = "dev", to use the latest commit
+  },
+
+  {
+    "ThePrimeagen/vim-apm",
     config = function()
-      require("telescope").load_extension "frecency"
+      require("vim-apm"):setup({})
     end,
   }
 

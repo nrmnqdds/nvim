@@ -33,22 +33,6 @@ local on_attach = function(client, bufnr)
     end
   end
 
-  --- autocmd to show diagnostics on CursorHold
-  -- vim.api.nvim_create_autocmd("CursorHold", {
-  --   buffer = bufnr,
-  --   desc = "✨lsp show diagnostics on CursorHold",
-  --   callback = function()
-  --     local hover_opts = {
-  --       focusable = false,
-  --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-  --       border = "rounded",
-  --       source = "always",
-  --       prefix = " ",
-  --     }
-  --     vim.diagnostic.open_float(nil, hover_opts)
-  --   end,
-  -- })
-
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "✨lsp hover for docs" }))
 
@@ -125,7 +109,8 @@ end
 require('mason').setup()
 require('mason-lspconfig').setup({
   ensure_installed = {
-    'tsserver',
+    -- 'tsserver', deprecated
+    'ts_ls',
     'rust_analyzer',
     'biome',
     'tailwindcss',
@@ -134,7 +119,8 @@ require('mason-lspconfig').setup({
     'lua_ls',
     'gopls',
     'dockerls',
-    'prismals'
+    'prismals',
+    'marksman'
   },
 })
 
@@ -142,7 +128,7 @@ require('mason-lspconfig').setup({
 local mason_registry = require('mason-registry')
 local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path()
 
-require('lspconfig').tsserver.setup({
+require('lspconfig').ts_ls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
   init_options = {
@@ -225,6 +211,10 @@ lsp.dockerls.setup({
   on_attach = on_attach,
 })
 lsp.prismals.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+lsp.marksman.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })

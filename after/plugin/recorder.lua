@@ -1,9 +1,8 @@
 -- default values
 require("recorder").setup {
   -- Named registers where macros are saved (single lowercase letters only).
-  -- The first register is the default register used as macro-slot after
-  -- startup.
-  slots = { "a", "b" },
+  -- The first register is the default register used as macro-slot after startup.
+  slots = { "a" },
 
   mapping = {
     startStopRecording = "q",
@@ -17,7 +16,7 @@ require("recorder").setup {
   },
 
   -- Clears all macros-slots on startup.
-  clear = false,
+  clear = true,
 
   -- Log level used for non-critical notifications; mostly relevant for nvim-notify.
   -- (Note that by default, nvim-notify does not show the levels `trace` & `debug`.)

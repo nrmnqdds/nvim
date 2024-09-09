@@ -136,15 +136,29 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- auto close brackets
 vim.api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
 
--- Enable spell checking for certain file types
-vim.api.nvim_create_autocmd(
-  { "BufRead", "BufNewFile" },
-  -- { pattern = { "*.txt", "*.md", "*.tex" }, command = [[setlocal spell<cr> setlocal spelllang=en,de<cr>]] }
-  {
-    pattern = { "*.txt", "*.md", "*.tex" },
-    callback = function()
-      vim.opt.spell = true
-      vim.opt.spelllang = "en,de"
-    end,
-  }
-)
+-- Automatically opens screenkey and vim apm when vim starts
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    -- Execute the screenkey toggle command
+    vim.cmd("Screenkey toggle")
+
+    -- Toggle vim apm monitor
+    require("vim-apm"):toggle_monitor()
+  end
+})
+
+--- autocmd to show diagnostics on CursorHold
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--   buffer = bufnr,
+--   desc = "✨lsp show diagnostics on CursorHold",
+--   callback = function()
+--     local hover_opts = {
+--       focusable = false,
+--       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+--       border = "rounded",
+--       source = "always",
+--       prefix = " ",
+--     }
+--     vim.diagnostic.open_float(nil, hover_opts)
+--   end,
+-- })

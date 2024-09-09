@@ -20,7 +20,11 @@ local config = {
     lualine_c = { {
       'filename',
       path = 1,
-    } }
+    },
+      -- function()
+      --   return require("screenkey").get_keys()
+      -- end,
+    }
   }
 }
 

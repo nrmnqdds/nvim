@@ -1,5 +1,4 @@
 local builtin = require('telescope.builtin')
-local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 local telescope = require("telescope")
 
@@ -7,6 +6,7 @@ telescope.load_extension("ui-select")
 telescope.load_extension("zf-native")
 telescope.load_extension("dap")
 telescope.load_extension("media_files")
+telescope.load_extension("frecency")
 
 telescope.setup({
   defaults = {
