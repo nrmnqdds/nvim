@@ -312,15 +312,18 @@ return require('lazy').setup({
   "nvim-telescope/telescope-frecency.nvim",
 
   {
-    "NStefan002/screenkey.nvim",
-    lazy = false,
-    version = "*", -- or branch = "dev", to use the latest commit
-  },
-
-  {
     "ThePrimeagen/vim-apm",
     config = function()
       require("vim-apm"):setup({})
+    end,
+  },
+
+  {
+    "NStefan002/screenkey.nvim",
+    lazy = false,
+    version = "*", -- or branch = "dev", to use the latest commit
+    config = function()
+      require("screenkey").setup()
     end,
   }
 

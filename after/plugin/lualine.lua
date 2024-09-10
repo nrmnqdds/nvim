@@ -1,17 +1,5 @@
 local lualine = require('lualine')
 
--- require('lualine').setup {
---   options = {
---     theme = 'tokyonight'
---   },
---   sections = {
---     lualine_c = { {
---       'filename',
---       path = 1,
---     } }
---   }
--- }
-
 local config = {
   options = {
     theme = 'tokyonight'
@@ -21,9 +9,6 @@ local config = {
       'filename',
       path = 1,
     },
-      -- function()
-      --   return require("screenkey").get_keys()
-      -- end,
     }
   }
 }

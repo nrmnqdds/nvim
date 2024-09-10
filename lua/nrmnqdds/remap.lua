@@ -136,16 +136,17 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- auto close brackets
 vim.api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
 
--- Automatically opens screenkey and vim apm when vim starts
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    -- Execute the screenkey toggle command
-    vim.cmd("Screenkey toggle")
+vim.keymap.set("n", "<leader>apm", function() require("vim-apm"):toggle_monitor() end)
 
-    -- Toggle vim apm monitor
-    require("vim-apm"):toggle_monitor()
-  end
-})
+vim.keymap.set("n", "<leader>cc", function() require("screenkey").toggle() end)
+
+-- Automatically opens vim apm when vim starts
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     -- Toggle vim apm monitor
+--     require("vim-apm"):toggle_monitor()
+--   end,
+-- })
 
 --- autocmd to show diagnostics on CursorHold
 -- vim.api.nvim_create_autocmd("CursorHold", {
