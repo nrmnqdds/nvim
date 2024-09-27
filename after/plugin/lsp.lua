@@ -1,4 +1,5 @@
 local lsp = require('lspconfig')
+local builtin = require('telescope.builtin')
 
 -- this is the function that loads the extra snippets to luasnip
 -- from rafamadriz/friendly-snippets
@@ -48,14 +49,14 @@ local on_attach = function(client, bufnr)
     vim.diagnostic.goto_prev()
   end, vim.tbl_extend("force", bufopts, { desc = "✨lsp go to previous diagnostic" }))
 
-  -- vim.keymap.set(
-  --   "n",
-  --   "gd",
-  --   function()
-  --     vim.lsp.buf.definition()
-  --   end,
-  --   vim.tbl_extend("force", bufopts, { desc = "✨lsp go to definition" })
-  -- )
+  vim.keymap.set(
+    "n",
+    "gd",
+    function()
+      vim.lsp.buf.definition()
+    end,
+    vim.tbl_extend("force", bufopts, { desc = "✨lsp go to definition" })
+  )
 
   vim.keymap.set(
     "n",
@@ -70,7 +71,8 @@ local on_attach = function(client, bufnr)
     "n",
     "gi",
     function()
-      vim.lsp.buf.implementation()
+      -- vim.lsp.buf.implementation()
+      builtin.lsp_implementations()
     end,
     vim.tbl_extend("force", bufopts, { desc = "✨lsp go to implementation" })
   )
@@ -83,7 +85,8 @@ local on_attach = function(client, bufnr)
     "n",
     "gr",
     function()
-      vim.lsp.buf.references()
+      -- vim.lsp.buf.references()
+      builtin.lsp_references()
     end,
     vim.tbl_extend("force", bufopts, { desc = "✨lsp go to references" })
   )

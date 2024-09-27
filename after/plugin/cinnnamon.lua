@@ -7,8 +7,8 @@ vim.keymap.set("n", "<C-u>", function() cinnamon.scroll("<C-U>zz") end)
 vim.keymap.set("n", "<C-d>", function() cinnamon.scroll("<C-D>zz") end)
 
 -- LSP:
-vim.keymap.set("n", "gd", function() cinnamon.scroll(vim.lsp.buf.definition) end)
-vim.keymap.set("n", "gD", function() cinnamon.scroll(vim.lsp.buf.declaration) end)
+-- vim.keymap.set("n", "gd", function() cinnamon.scroll(vim.lsp.buf.definition) end)
+-- vim.keymap.set("n", "gD", function() cinnamon.scroll(vim.lsp.buf.declaration) end)
 
 -- Basic vim motions:
 vim.keymap.set("n", "w", function() cinnamon.scroll("w") end)
