@@ -3,5 +3,3 @@ require("nrmnqdds.packer")
 require("nrmnqdds.set")
 
 require("ibl").setup()
-
-require("fidget").setup()

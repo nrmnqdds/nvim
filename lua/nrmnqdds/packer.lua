@@ -60,16 +60,16 @@ return require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     lazy = true,
-    tag = '0.1.6',
-    -- or                            , branch = '0.1.x',
+    version = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
-      "natecraddock/telescope-zf-native.nvim",
+      -- "natecraddock/telescope-zf-native.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-telescope/telescope-ui-select.nvim",
       "nvim-telescope/telescope-dap.nvim",
       "nvim-telescope/telescope-media-files.nvim",
-      -- "kkharji/sqlite.lua",
+      "kkharji/sqlite.lua",
       -- "nvim-telescope/telescope-frecency.nvim",
     },
   },
@@ -217,7 +217,22 @@ return require('lazy').setup({
 
   "windwp/nvim-ts-autotag",
 
-  "j-hui/fidget.nvim",
+  -- "j-hui/fidget.nvim",
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    }
+  },
 
   "lewis6991/gitsigns.nvim",
 
@@ -247,23 +262,23 @@ return require('lazy').setup({
       --- The below dependencies are optional,
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
       "zbirenbaum/copilot.lua",      -- for providers='copilot'
-      {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
+      -- {
+      --   -- support for image pasting
+      --   "HakonHarnes/img-clip.nvim",
+      --   event = "VeryLazy",
+      --   opts = {
+      --     -- recommended settings
+      --     default = {
+      --       embed_image_as_base64 = false,
+      --       prompt_for_file_name = false,
+      --       drag_and_drop = {
+      --         insert_mode = true,
+      --       },
+      --       -- required for Windows users
+      --       use_absolute_path = true,
+      --     },
+      --   },
+      -- },
       {
         -- Make sure to set this up properly if you have lazy=true
         'MeanderingProgrammer/render-markdown.nvim',

@@ -12,7 +12,9 @@ vim.keymap.set("n", "<C-d>", function() cinnamon.scroll("<C-D>zz") end)
 
 -- Basic vim motions:
 vim.keymap.set("n", "w", function() cinnamon.scroll("w") end)
+vim.keymap.set("n", "W", function() cinnamon.scroll("3w") end)
 vim.keymap.set("n", "b", function() cinnamon.scroll("b") end)
+vim.keymap.set("n", "B", function() cinnamon.scroll("3b") end)
 vim.keymap.set("n", "e", function() cinnamon.scroll("e") end)
 vim.keymap.set("n", "j", function() cinnamon.scroll("j") end)
 vim.keymap.set("n", "k", function() cinnamon.scroll("k") end)
