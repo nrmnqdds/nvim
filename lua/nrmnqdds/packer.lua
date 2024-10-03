@@ -198,8 +198,32 @@ return require('lazy').setup({
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    opts = {}
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {
+      indent = {
+        char = "┊",
+      },
+      scope = {
+        exclude = { node_type = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" } },
+      }
+    },
   },
+
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   main = "ibl",
+  --   enabled = false,
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   opts = {
+  --     char = "┊",
+  --     -- char = "│",
+  --     filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+  --     show_trailing_blankline_indent = false,
+  --     show_current_context = false,
+  --   },
+  -- },
+
 
   {
     'nvim-lualine/lualine.nvim',
@@ -379,19 +403,35 @@ return require('lazy').setup({
   "nvim-telescope/telescope-frecency.nvim",
 
   {
-    "ThePrimeagen/vim-apm",
-    config = function()
-      require("vim-apm"):setup({})
-    end,
-  },
-
-  {
     "NStefan002/screenkey.nvim",
     lazy = false,
     version = "*", -- or branch = "dev", to use the latest commit
     config = function()
       require("screenkey").setup()
     end,
-  }
+  },
+
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+  {                                        -- optional completion source for require statements and module annotations
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, {
+        name = "lazydev",
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      })
+    end,
+  },
 
 })

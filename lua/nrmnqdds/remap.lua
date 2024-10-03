@@ -109,10 +109,7 @@ map("n", ";", ":", opt)
 
 map({ "v", "x" }, "q", "<C-c>", opt)
 
-map("n", "<leader>apm", function() require("vim-apm"):toggle_monitor() end)
-
 map("n", "<leader>cc", function() require("screenkey").toggle() end)
-
 
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
