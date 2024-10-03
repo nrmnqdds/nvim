@@ -200,6 +200,7 @@ return require('lazy').setup({
     main = "ibl",
     ---@module "ibl"
     ---@type ibl.config
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       indent = {
         char = "┊",
@@ -209,21 +210,6 @@ return require('lazy').setup({
       }
     },
   },
-
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   main = "ibl",
-  --   enabled = false,
-  --   event = { "BufReadPost", "BufNewFile" },
-  --   opts = {
-  --     char = "┊",
-  --     -- char = "│",
-  --     filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
-  --     show_trailing_blankline_indent = false,
-  --     show_current_context = false,
-  --   },
-  -- },
-
 
   {
     'nvim-lualine/lualine.nvim',
@@ -432,6 +418,6 @@ return require('lazy').setup({
         group_index = 0, -- set group index to 0 to skip loading LuaLS completions
       })
     end,
-  },
+  }
 
 })
