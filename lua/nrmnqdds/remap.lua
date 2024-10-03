@@ -141,9 +141,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- auto close brackets
 -- vim.api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
 
--- Use builtin LSP hover handler with rounded border
--- See: https://github.com/neovim/nvim-lspconfig/issues/3036#issuecomment-2315035246
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
 -- Automatically opens vim apm when vim starts
 -- vim.api.nvim_create_autocmd("VimEnter", {

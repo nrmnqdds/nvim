@@ -107,6 +107,13 @@ local on_attach = function(client, bufnr)
   )
 end
 
+-- -- Use builtin LSP hover handler with rounded border
+-- -- See: https://github.com/neovim/nvim-lspconfig/issues/3036#issuecomment-2315035246
+local _handlers = {
+  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+}
+
 -- to learn how to use mason.nvim with lsp-zero
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({
@@ -140,7 +147,7 @@ require('mason-lspconfig').setup({
 local mason_registry = require('mason-registry')
 local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path()
 
-require('lspconfig').ts_ls.setup({
+lsp.ts_ls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
   init_options = {
@@ -187,27 +194,34 @@ require('lspconfig').ts_ls.setup({
         config
       )
     end,
+    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
   },
 })
 lsp.rust_analyzer.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.dartls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.biome.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.tailwindcss.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.gopls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.volar.setup({
   capabilities = capabilities,
@@ -217,18 +231,22 @@ lsp.volar.setup({
       hybridMode = false,
     },
   },
+  handlers = _handlers,
 })
 lsp.dockerls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.prismals.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.marksman.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.lua_ls.setup({
   capabilities = capabilities,
@@ -239,7 +257,8 @@ lsp.lua_ls.setup({
         globals = { "vim" }
       }
     }
-  }
+  },
+  handlers = _handlers,
 })
 lsp.yamlls.setup({
   capabilities = capabilities,
@@ -247,6 +266,7 @@ lsp.yamlls.setup({
   flags = {
     debounce_text_changes = 150,
   },
+  handlers = _handlers,
   -- on_attach = function(client, buffer)
   --   if client.name == "yamlls" then
   --     client.resolved_capabilities.document_formatting = true
