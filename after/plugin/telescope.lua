@@ -134,24 +134,25 @@ telescope.setup({
     file_ignore_patterns = { "node_modules", "package-lock.json" },
     initial_mode = "insert",
     select_strategy = "reset",
-    sorting_strategy = "ascending",
+    sorting_strategy = "descending",
     color_devicons = true,
     set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
     layout_config = {
-      prompt_position = "top",
+      prompt_position = "bottom",
       preview_cutoff = 120,
     },
-    vimgrep_arguments = {
-      "rg",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-      "--smart-case",
-      "--hidden",
-      "--glob=!.git/",
-    },
+    -- vimgrep_arguments = {
+    --   "rg",
+    --   "--color=never",
+    --   "--no-heading",
+    --   "--with-filename",
+    --   "--line-number",
+    --   "--column",
+    --   "--smart-case",
+    --   "--hidden",
+    --   "--glob=!.git/",
+    --   "--glob=!.env/",
+    -- },
   }
 })
 

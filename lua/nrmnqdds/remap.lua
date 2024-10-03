@@ -109,6 +109,11 @@ map("n", ";", ":", opt)
 
 map({ "v", "x" }, "q", "<C-c>", opt)
 
+map("n", "<leader>apm", function() require("vim-apm"):toggle_monitor() end)
+
+map("n", "<leader>cc", function() require("screenkey").toggle() end)
+
+
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking text",
@@ -134,11 +139,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- auto close brackets
-vim.api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
+-- vim.api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
 
-vim.keymap.set("n", "<leader>apm", function() require("vim-apm"):toggle_monitor() end)
-
-vim.keymap.set("n", "<leader>cc", function() require("screenkey").toggle() end)
+-- Use builtin LSP hover handler with rounded border
+-- See: https://github.com/neovim/nvim-lspconfig/issues/3036#issuecomment-2315035246
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
 -- Automatically opens vim apm when vim starts
 -- vim.api.nvim_create_autocmd("VimEnter", {

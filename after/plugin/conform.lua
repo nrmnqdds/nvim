@@ -8,7 +8,7 @@ require("conform").setup({
     vue = { "volar" },
     javascriptreact = { "biome", "prettier" },
     typescriptreact = { "biome", "prettier" },
-    go = { "gofumpt", "gofmt" },
+    go = { "gofumpt", "goimports" },
     dart = { "dart_format", "dcm_format" },
     yaml = { "yamlfmt" },
     json = { "jq" },
