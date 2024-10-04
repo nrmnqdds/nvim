@@ -11,6 +11,7 @@ require("noice").setup({
         -- opts: any options passed to the view
         -- icon_hl_group: optional hl_group for the icon
         -- title: set to anything or empty string to hide
+        -- ignore: set to true to ignore this format
         cmdline = { pattern = "^:", icon = "", lang = "vim" },
         search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
         search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
@@ -51,6 +52,7 @@ require("noice").setup({
     commands = {
       history = {
         -- options for the message history that you get with `:Noice`
+        filter_opts = {},
         view = "split",
         opts = { enter = true, format = "details" },
         filter = {
