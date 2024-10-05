@@ -342,10 +342,10 @@ return require('lazy').setup({
 
   -- "karb94/neoscroll.nvim",
 
-  {
-    "declancm/cinnamon.nvim",
-    version = "*", -- use latest release
-  },
+  -- {
+  --   "declancm/cinnamon.nvim",
+  --   version = "*", -- use latest release
+  -- },
 
   "luckasRanarison/tailwind-tools.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -418,6 +418,12 @@ return require('lazy').setup({
         group_index = 0, -- set group index to 0 to skip loading LuaLS completions
       })
     end,
+  },
+
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
   }
 
 })

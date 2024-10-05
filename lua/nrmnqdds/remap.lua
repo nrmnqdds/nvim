@@ -24,8 +24,12 @@ map("n", "<Leader>qq", ":q!<CR>", opt)
 map("n", "<Leader>qa", ":qa!<CR>", opt)
 
 -- scroll without moving the cursor
--- map("n", "<C-u>", "<C-u>zz", opt)
--- map("n", "<C-d>", "<C-d>zz", opt)
+map("n", "<C-u>", "<C-u>zz", opt)
+map("n", "<C-d>", "<C-d>zz", opt)
+
+-- fast w/b
+map("n", "<S-w>", "3w", opt)
+map("n", "<S-b>", "3b", opt)
 
 -- enter normal mode in terminal
 map("t", "<Esc>", "<C-\\><C-n>", opt)
@@ -80,8 +84,8 @@ map("n", "<C-l>", ":Telescope live_grep<CR>", opt)
 map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", opt)
 
 -- Navigate buffers
-map("n", "<C-j>", ":bnext<CR>", opt)
-map("n", "<C-k>", ":bprevious<CR>", opt)
+-- map("n", "<C-j>", ":bnext<CR>", opt)
+-- map("n", "<C-k>", ":bprevious<CR>", opt)
 map("n", "<leader>d", ":bd<CR>", opt)
 
 -- Close highlighted search
