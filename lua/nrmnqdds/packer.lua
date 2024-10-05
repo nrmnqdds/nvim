@@ -196,20 +196,28 @@ return require('lazy').setup({
   },
 
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      indent = {
-        char = "┊",
-      },
-      scope = {
-        exclude = { node_type = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" } },
-      }
-    },
+    "shellRaining/hlchunk.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("hlchunk").setup({})
+    end
   },
+
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   main = "ibl",
+  --   ---@module "ibl"
+  --   ---@type ibl.config
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   opts = {
+  --     indent = {
+  --       char = "┊",
+  --     },
+  --     scope = {
+  --       exclude = { node_type = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" } },
+  --     }
+  --   },
+  -- },
 
   {
     'nvim-lualine/lualine.nvim',
