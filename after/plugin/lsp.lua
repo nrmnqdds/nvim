@@ -254,7 +254,10 @@ lsp.lua_ls.setup({
   settings = {
     Lua = {
       diagnostics = {
-        globals = { "vim" }
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+        globals = { "vim" },
+        disable = { "missing-fields", "incomplete-signature-doc" },
       }
     }
   },
