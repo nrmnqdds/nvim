@@ -84,8 +84,8 @@ map("n", "<C-l>", ":Telescope live_grep<CR>", opt)
 map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", opt)
 
 -- Navigate buffers
--- map("n", "<C-j>", ":bnext<CR>", opt)
--- map("n", "<C-k>", ":bprevious<CR>", opt)
+map("n", "<C-j>", ":bnext<CR>", opt)
+map("n", "<C-k>", ":bprevious<CR>", opt)
 map("n", "<leader>d", ":bd<CR>", opt)
 
 -- Close highlighted search

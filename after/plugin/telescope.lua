@@ -10,7 +10,6 @@ telescope.load_extension("ui-select")
 telescope.load_extension("dap")
 telescope.load_extension("media_files")
 telescope.load_extension("frecency")
-telescope.load_extension("notify")
 
 local function document_symbols_for_selected(prompt_bufnr)
   local entry = action_state.get_selected_entry()
