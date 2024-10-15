@@ -1,8 +1,6 @@
-require("vim-react-snippets").lazy_load()
 local cmp = require("cmp")
-local lsp_zero = require("lsp-zero")
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local luasnip = require("luasnip")
+-- local lspkind = require("lspkind")
 
 local kind_icons = {
   Text = "",
@@ -35,6 +33,28 @@ require("luasnip.loaders.from_vscode").lazy_load()
 luasnip.config.setup({})
 
 cmp.setup({
+  -- enabled = false,
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  completion = {
+    completeopt = "menu,menuone,noinsert",
+  },
+  mapping = cmp.mapping.preset.insert({
+    ["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<C-k>"] = cmp.mapping.select_prev_item(),
+    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+    -- ["<CR>"] = cmp.mapping.confirm({
+    --   behavior = cmp.ConfirmBehavior.Replace,
+    --   select = true,
+    -- }),
+  }),
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   sources = {
     { name = "copilot" },
     { name = "nvim_lsp" },
@@ -46,19 +66,6 @@ cmp.setup({
     { name = "emoji" },
     { name = "treesitter" },
   },
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  completion = {
-    completeopt = 'menu,menuone,noinsert',
-  },
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
-  -- formatting = lsp_zero.cmp_format({ details = false }),
   formatting = {
     format = function(entry, vim_item)
       local lspkind_ok, lspkind = pcall(require, "lspkind")
@@ -81,10 +88,4 @@ cmp.setup({
       end
     end,
   },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-Space>'] = cmp.mapping.complete(),
-  }),
 })

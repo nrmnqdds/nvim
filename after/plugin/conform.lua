@@ -9,7 +9,7 @@ require("conform").setup({
     javascriptreact = { "biome", "prettier" },
     typescriptreact = { "biome", "prettier" },
     go = { "gofumpt", "goimports" },
-    dart = { "dart_format", "dcm_format" },
+    dart = { "dart_format" },
     yaml = { "yamlfmt" },
     json = { "jq" },
     markdown = { "markdownfmt" },

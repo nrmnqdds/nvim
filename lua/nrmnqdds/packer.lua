@@ -119,36 +119,57 @@ return require('lazy').setup({
     'hrsh7th/cmp-cmdline',
   },
 
-  -- Installation
-  "L3MON4D3/LuaSnip",
   {
-    'hrsh7th/nvim-cmp',
-    opts = {
-      performance = {
-        debounce = 0, -- default is 60ms
-        throttle = 0, -- default is 30ms
-      }
-    },
-    config = function()
-      require 'cmp'.setup {
-        snippet = {
-          expand = function(args)
-            require 'luasnip'.lsp_expand(args.body)
-          end
-        },
+    -- Autocompletion
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      -- Snippet Engine & its associated nvim-cmp source
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
 
-        sources = {
-          { name = 'luasnip' },
-          -- more sources
-        },
-      }
-    end
+      -- Adds LSP completion capabilities
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+
+      -- Adds a number of user-friendly snippets
+      "rafamadriz/friendly-snippets",
+
+      -- Adds vscode-like pictograms
+      "onsails/lspkind.nvim",
+    },
   },
 
-
-  "saadparwaiz1/cmp_luasnip",
-
-  "rafamadriz/friendly-snippets",
+  -- -- Installation
+  -- "L3MON4D3/LuaSnip",
+  -- {
+  --   'hrsh7th/nvim-cmp',
+  --   opts = {
+  --     performance = {
+  --       debounce = 0, -- default is 60ms
+  --       throttle = 0, -- default is 30ms
+  --     }
+  --   },
+  --   config = function()
+  --     require 'cmp'.setup {
+  --       snippet = {
+  --         expand = function(args)
+  --           require 'luasnip'.lsp_expand(args.body)
+  --         end
+  --       },
+  --
+  --       sources = {
+  --         { name = 'luasnip' },
+  --         -- more sources
+  --       },
+  --     }
+  --   end
+  -- },
+  --
+  --
+  -- "saadparwaiz1/cmp_luasnip",
+  --
+  -- "rafamadriz/friendly-snippets",
 
   "SmiteshP/nvim-navic",
   "LunarVim/breadcrumbs.nvim",
@@ -235,7 +256,10 @@ return require('lazy').setup({
 
   "windwp/nvim-ts-autotag",
 
-  "j-hui/fidget.nvim",
+  {
+    "j-hui/fidget.nvim",
+    opts = {}
+  },
 
   "lewis6991/gitsigns.nvim",
 
@@ -340,7 +364,6 @@ return require('lazy').setup({
   -- },
 
   "luckasRanarison/tailwind-tools.nvim",
-  dependencies = { "nvim-treesitter/nvim-treesitter" },
 
   {
     'laytan/tailwind-sorter.nvim',
@@ -390,26 +413,55 @@ return require('lazy').setup({
   },
 
   {
-    "folke/lazydev.nvim",
-    ft = "lua", -- only load on lua files
-    opts = {
-      library = {
-        -- See the configuration section for more details
-        -- Load luvit types when the `vim.uv` word is found
-        { path = "luvit-meta/library", words = { "vim%.uv" } },
-      },
-    },
+    "goolord/alpha-nvim",
+    -- dependencies = { 'echasnovski/mini.icons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    -- config = function()
+    --   local startify = require("alpha.themes.startify")
+    --   -- available: devicons, mini, default is mini
+    --   -- if provider not loaded and enabled is true, it will try to use another provider
+    --   startify.file_icons.provider = "devicons"
+    --   require("alpha").setup(
+    --     startify.config
+    --   )
+    -- end,
   },
-  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
-  {                                        -- optional completion source for require statements and module annotations
-    "hrsh7th/nvim-cmp",
-    opts = function(_, opts)
-      opts.sources = opts.sources or {}
-      table.insert(opts.sources, {
-        name = "lazydev",
-        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-      })
-    end,
-  },
+
+  "laytan/cloak.nvim"
+
+  -- {
+  --   'saghen/blink.cmp',
+  --   lazy = false, -- lazy loading handled internally
+  --   -- optional: provides snippets for the snippet source
+  --   dependencies = 'rafamadriz/friendly-snippets',
+  --
+  --   -- use a release tag to download pre-built binaries
+  --   version = 'v0.*',
+  --   -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+  --   -- build = 'cargo build --release',
+  --
+  --   opts = {
+  --     highlight = {
+  --       -- sets the fallback highlight groups to nvim-cmp's highlight groups
+  --       -- useful for when your theme doesn't support blink.cmp
+  --       -- will be removed in a future release, assuming themes add support
+  --       use_nvim_cmp_as_default = true,
+  --     },
+  --     -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+  --     -- adjusts spacing to ensure icons are aligned
+  --     nerd_font_variant = 'normal',
+  --
+  --     -- experimental auto-brackets support
+  --     -- accept = { auto_brackets = { enabled = true } }
+  --
+  --     -- experimental signature help support
+  --     -- trigger = { signature_help = { enabled = true } }
+  --     keymap = {
+  --       accept = '<C-y>',
+  --       select_prev = { '<Up>', '<C-k>' },
+  --       select_next = { '<Down>', '<C-j>' },
+  --     }
+  --   }
+  -- }
 
 })
