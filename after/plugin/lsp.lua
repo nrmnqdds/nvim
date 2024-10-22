@@ -22,7 +22,7 @@ local on_attach = function(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "✨lsp hover for docs" }))
 
-  vim.keymap.set("n", "<leader>vd", function()
+  vim.keymap.set("n", "<leader>ld", function()
     vim.diagnostic.open_float({ scope = "line" })
   end, vim.tbl_extend("force", bufopts, { desc = "✨lsp show diagnostics" }))
 
@@ -62,8 +62,9 @@ local on_attach = function(client, bufnr)
     vim.tbl_extend("force", bufopts, { desc = "✨lsp go to implementation" })
   )
 
-  vim.keymap.set("n", "<leader>vr", function()
+  vim.keymap.set("n", "<leader>lr", function()
     vim.lsp.buf.rename()
+    vim.cmd("silent! wa")
   end, vim.tbl_extend("force", bufopts, { desc = "✨lsp rename" }))
 
   vim.keymap.set(

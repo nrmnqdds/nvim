@@ -427,7 +427,14 @@ return require('lazy').setup({
     -- end,
   },
 
-  "laytan/cloak.nvim"
+  "laytan/cloak.nvim",
+
+  {
+    "mg979/vim-visual-multi",
+    branch = 'master'
+  }
+
+
 
   -- {
   --   'saghen/blink.cmp',
