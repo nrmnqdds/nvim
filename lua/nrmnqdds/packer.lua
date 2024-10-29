@@ -56,6 +56,8 @@ return require('lazy').setup({
 
   "mfussenegger/nvim-dap",
 
+  "mbbill/undotree",
+
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
