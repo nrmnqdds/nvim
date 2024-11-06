@@ -111,8 +111,8 @@ map("n", "<C-Right>", ":vertical resize -2<CR>", { desc = "Resize window width" 
 
 map("n", ";", ":", { desc = "Enter command mode" })
 
-map({ "v", "x" }, "q", "<C-c>", { desc = "Exit visual mode" })
-
 map("n", "<leader>cc", function() require("screenkey").toggle() end, { desc = "Toggle ScreenKey" })
 
 map("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle undo tree" })
+
+map("n", "@", "@a", { desc = "Play macros" })

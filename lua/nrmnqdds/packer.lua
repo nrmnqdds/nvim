@@ -19,14 +19,14 @@ return require('lazy').setup({
   install = {
     missing = true,
     -- colorscheme = { "catppuccin", "habamax" }
-    colorscheme = { "tokyonight" },
+    colorscheme = { "midnight" },
   },
   checker = {
     enabled = true,
   },
   change_detection = {
     enabled = true,
-    notify = false,
+    notify = true,
   },
   ui = {
     border = "rounded"
@@ -44,13 +44,23 @@ return require('lazy').setup({
   },
 
   {
+    'dasupradyumna/midnight.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- vim.cmd.colorscheme 'midnight'
+    end
+  },
+
+  {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
     config = function()
       -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight-night]])
+      -- vim.cmd([[colorscheme tokyonight-night]])
+      vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
 
@@ -353,7 +363,8 @@ return require('lazy').setup({
 
   {
     "chrisgrieser/nvim-recorder",
-    opts = {}, -- required even with default settings, since it calls `setup()`
+    dependencies = "rcarriga/nvim-notify", -- optional
+    opts = {},                             -- required even with default settings, since it calls `setup()`
   },
 
   'dstein64/nvim-scrollview',
@@ -444,7 +455,9 @@ return require('lazy').setup({
     },
     event = "LspAttach",
     config = function()
-      require('tiny-code-action').setup()
+      require('tiny-code-action').setup({
+        backend = "delta"
+      })
     end
   }
 
