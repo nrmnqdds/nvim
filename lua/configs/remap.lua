@@ -111,8 +111,6 @@ map("n", ";", ":", { desc = "Enter command mode" })
 
 map("n", "<leader>cc", function() require("screenkey").toggle() end, { desc = "Toggle ScreenKey" })
 
-map("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle undo tree" })
-
 map("n", "@", "@a", { desc = "Play macros" })
 
 map('i', '<Tab>', function()
