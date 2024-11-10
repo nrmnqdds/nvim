@@ -38,3 +38,5 @@ vim.opt.colorcolumn = ""
 vim.opt.smoothscroll = true
 
 vim.opt.spell = false
+
+vim.opt.laststatus = 3

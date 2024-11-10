@@ -16,11 +16,11 @@ map("n", "<Leader>w", function()
   vim.cmd("silent! write!")
 end, { desc = "Fast save" })
 
--- Fast quitting
-map("n", "<Leader>qq", ":q!<CR>", { desc = "Fast quit" })
+-- Fast quitting current buffer
+map("n", "<Leader>qq", ":q<CR>", { desc = "Fast quit", noremap = true, silent = true })
 
 -- Fast quitting all
-map("n", "<Leader>qa", ":qa!<CR>", { desc = "Fast quit all" })
+map("n", "<Leader>qa", ":qa<CR>", { desc = "Fast quit all", noremap = true, silent = true })
 
 -- scroll without moving the cursor
 map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up without moving the cursor" })
@@ -84,9 +84,10 @@ map("n", "<C-l>", ":Telescope live_grep<CR>", { desc = "Live grep" })
 map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", { desc = "Split line" })
 
 -- Navigate buffers
-map("n", "<C-j>", ":bnext<CR>", { desc = "Navigate buffers" })
-map("n", "<C-k>", ":bprevious<CR>", { desc = "Navigate buffers" })
-map("n", "<leader>d", ":bd<CR>", { desc = "Close buffer" })
+map("n", "<C-j>", ":bnext<CR>", { desc = "Navigate buffers", noremap = true, silent = true })
+map("n", "<C-k>", ":bprevious<CR>", { desc = "Navigate buffers", noremap = true, silent = true })
+map("n", "<leader>dd", ":bd<CR>", { desc = "Close current buffer", noremap = true, silent = true })
+map("n", "<leader>da", ":%bd|e#|bd#<CR>", { desc = "Close all buffer", noremap = true, silent = true })
 
 -- Close highlighted search
 map("n", "<Esc>", ":nohlsearch<CR>", { desc = "Close highlighted search" })

@@ -6,18 +6,18 @@ local builtin = require('telescope.builtin')
 require('luasnip.loaders.from_vscode').lazy_load()
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local on_attach = function(client, bufnr)
+local function keymap_on_attach(client, bufnr)
   --- toggle diagnostics
   vim.g.diagnostics_visible = true
-  local function toggle_diagnostics()
-    if vim.g.diagnostics_visible then
-      vim.g.diagnostics_visible = false
-      vim.diagnostic.enable(false)
-    else
-      vim.g.diagnostics_visible = true
-      vim.diagnostic.enable()
-    end
-  end
+  -- local function toggle_diagnostics()
+  --   if vim.g.diagnostics_visible then
+  --     vim.g.diagnostics_visible = false
+  --     vim.diagnostic.enable(false)
+  --   else
+  --     vim.g.diagnostics_visible = true
+  --     vim.diagnostic.enable()
+  --   end
+  -- end
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "✨lsp hover for docs" }))
@@ -96,6 +96,11 @@ local on_attach = function(client, bufnr)
   )
 end
 
+local function on_attach(client, bufnr)
+  -- virtual_types_on_attach(client, bufnr)
+  keymap_on_attach(client, bufnr)
+end
+
 -- -- Use builtin LSP hover handler with rounded border
 -- -- See: https://github.com/neovim/nvim-lspconfig/issues/3036#issuecomment-2315035246
 local _handlers = {
@@ -119,6 +124,7 @@ require('mason-lspconfig').setup({
   ensure_installed = {
     -- 'tsserver', deprecated
     'ts_ls',
+    'astro',
     'biome',
     'tailwindcss',
     'volar',
@@ -185,6 +191,11 @@ lsp.ts_ls.setup({
     ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
   },
+})
+lsp.astro.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  handlers = _handlers,
 })
 lsp.dartls.setup({
   capabilities = capabilities,

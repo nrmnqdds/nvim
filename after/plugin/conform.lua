@@ -5,6 +5,7 @@ require("conform").setup({
     rust = { "rustfmt", lsp_format = "fallback" },
     javascript = { "biome", "prettier" },
     typescript = { "biome", "prettier" },
+    astro = { "biome", "prettier" },
     vue = { "biome", "prettier" },
     javascriptreact = { "biome", "prettier" },
     typescriptreact = { "biome", "prettier" },
