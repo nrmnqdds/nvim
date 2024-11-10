@@ -40,3 +40,13 @@ vim.opt.smoothscroll = true
 vim.opt.spell = false
 
 vim.opt.laststatus = 3
+
+-- if a file is a .env or .envrc file, set the filetype to sh
+vim.filetype.add({
+  filename = {
+    [".env"] = "sh",
+    [".envrc"] = "sh",
+    ["*.env"] = "sh",
+    ["*.envrc"] = "sh"
+  }
+})

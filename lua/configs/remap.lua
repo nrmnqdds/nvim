@@ -122,3 +122,7 @@ map('i', '<Tab>', function()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
   end
 end, { desc = "Super Tab" })
+
+vim.keymap.set("n", "<C-t>", function()
+  require("cloak").toggle()
+end, { noremap = true, silent = true })
