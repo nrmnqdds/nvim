@@ -22,6 +22,28 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+local get_option = vim.filetype.get_option
+vim.filetype.get_option = function(filetype, option)
+  return option == "commentstring"
+      and require("ts_context_commentstring.internal").calculate_commentstring()
+      or get_option(filetype, option)
+end
+
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    underline = true,
+    virtual_text = {
+      spacing = 5,
+      severinity = {
+        min = vim.diagnostic.severity.WARN
+      }
+    },
+    update_in_insert = true,
+  }
+)
+
+
 -- auto close brackets
 -- vim.api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
 

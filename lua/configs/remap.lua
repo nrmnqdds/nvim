@@ -1,8 +1,5 @@
 local map = vim.keymap.set
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- open netrw file explorer
 map("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw file explorer" })
 
@@ -117,3 +114,11 @@ map("n", "<leader>cc", function() require("screenkey").toggle() end, { desc = "T
 map("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle undo tree" })
 
 map("n", "@", "@a", { desc = "Play macros" })
+
+map('i', '<Tab>', function()
+  if require("copilot.suggestion").is_visible() then
+    require("copilot.suggestion").accept()
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+  end
+end, { desc = "Super Tab" })
