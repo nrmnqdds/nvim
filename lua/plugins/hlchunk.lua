@@ -4,7 +4,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       chunk = {
-        enable = true,
+        enable = false,
         style = {
           { fg = "#00ffff" },
           { fg = "#f35336" },

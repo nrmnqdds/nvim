@@ -44,7 +44,7 @@ return {
     config = function()
       local lsp = require('lspconfig')
       local builtin = require('telescope.builtin')
-      local navic = require('nvim-navic')
+      -- local navic = require('nvim-navic')
 
       -- this is the function that loads the extra snippets to luasnip
       -- from rafamadriz/friendly-snippets
@@ -143,7 +143,7 @@ return {
 
       local function on_attach(client, bufnr)
         -- virtual_types_on_attach(client, bufnr)
-        navic.attach(client, bufnr)
+        -- navic.attach(client, bufnr)
         keymap_on_attach(client, bufnr)
       end
 
