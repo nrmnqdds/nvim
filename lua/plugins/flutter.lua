@@ -46,9 +46,9 @@ return {
   },
 
   -- for dart syntax hightling
-  {
-    "dart-lang/dart-vim-plugin"
-  },
+  -- {
+  --   "dart-lang/dart-vim-plugin"
+  -- },
 
   'reisub0/hot-reload.vim',
 

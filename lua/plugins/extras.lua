@@ -1,17 +1,5 @@
 return {
   {
-    "SmiteshP/nvim-navic",
-    opts = {
-      lsp = {
-        auto_attach = true,
-      }
-    }
-  },
-  {
-    "LunarVim/breadcrumbs.nvim",
-    opts = {}
-  },
-  {
     "j-hui/fidget.nvim",
     opts = {}
   },
