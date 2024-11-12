@@ -1,4 +1,13 @@
 return {
+  -- {
+  --   'Bekaboo/dropbar.nvim',
+  --   -- optional, but required for fuzzy finder support
+  --   dependencies = {
+  --     'nvim-telescope/telescope-fzf-native.nvim',
+  --     build = 'make'
+  --   }
+  -- },
+
   {
     "j-hui/fidget.nvim",
     opts = {}
@@ -10,8 +19,6 @@ return {
       require("auto-session").setup()
     end
   },
-
-  'dstein64/nvim-scrollview',
 
   {
     "NStefan002/screenkey.nvim",
@@ -52,5 +59,4 @@ return {
     branch = 'master'
   },
   "mfussenegger/nvim-dap",
-
 }

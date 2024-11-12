@@ -50,5 +50,3 @@ vim.filetype.add({
     ["*.envrc"] = "sh"
   }
 })
-
-vim.o.background = "dark"
