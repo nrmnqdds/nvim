@@ -42,4 +42,6 @@ return {
       },
     }
   },
+
+  'tpope/vim-fugitive',
 }

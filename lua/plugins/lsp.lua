@@ -49,20 +49,23 @@ return {
       -- this is the function that loads the extra snippets to luasnip
       -- from rafamadriz/friendly-snippets
       require('luasnip.loaders.from_vscode').lazy_load()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      -- local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
       local function keymap_on_attach(_, bufnr)
         --- toggle diagnostics
         vim.g.diagnostics_visible = true
-        -- local function toggle_diagnostics()
-        --   if vim.g.diagnostics_visible then
-        --     vim.g.diagnostics_visible = false
-        --     vim.diagnostic.enable(false)
-        --   else
-        --     vim.g.diagnostics_visible = true
-        --     vim.diagnostic.enable()
-        --   end
-        -- end
+
+        local function toggle_diagnostics()
+          if vim.g.diagnostics_visible then
+            vim.g.diagnostics_visible = false
+            vim.diagnostic.enable(false)
+          else
+            vim.g.diagnostics_visible = true
+            vim.diagnostic.enable()
+          end
+        end
 
         local bufopts = { noremap = true, silent = true, buffer = bufnr }
         vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "✨lsp hover for docs" }))
@@ -122,14 +125,15 @@ return {
           vim.tbl_extend("force", bufopts, { desc = "✨lsp go to references" })
         )
 
-        -- vim.keymap.set(
-        --   "n",
-        --   "<leader>l",
-        --   function()
-        --     toggle_diagnostics()
-        --   end,
-        --   vim.tbl_extend("force", bufopts, { desc = "✨lsp toggle diagnostics" })
-        -- )
+        vim.keymap.set(
+          "n",
+          "<leader>l",
+          function()
+            toggle_diagnostics()
+          end,
+          vim.tbl_extend("force", bufopts, { desc = "✨lsp toggle diagnostics" })
+        )
+
         vim.keymap.set(
           "n",
           "<leader>la",
@@ -142,7 +146,6 @@ return {
       end
 
       local function on_attach(client, bufnr)
-        -- virtual_types_on_attach(client, bufnr)
         -- navic.attach(client, bufnr)
         keymap_on_attach(client, bufnr)
       end
@@ -179,7 +182,8 @@ return {
           'gopls',
           'dockerls',
           'prismals',
-          'marksman'
+          'marksman',
+          -- 'sqlls'
         },
       })
 
@@ -336,6 +340,15 @@ return {
           completion = true,
         },
       })
+      -- lsp.sqlls.setup({
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      --   handlers = _handlers,
+      --   filetypes = { 'sql' },
+      --   root_dir = function(_)
+      --     return vim.loop.cwd()
+      --   end,
+      -- })
 
       -------------------------------------------
       --- diagnostics: linting and formatting ---

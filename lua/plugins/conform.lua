@@ -17,6 +17,7 @@ return {
         yaml = { "yamlfmt" },
         json = { "jq" },
         markdown = { "markdownfmt" },
+        sql = { "sleek" },
       },
     },
   },
