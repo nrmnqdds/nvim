@@ -36,6 +36,14 @@ return {
       require("screenkey").setup()
     end,
   },
+  {
+    "NStefan002/screenkey.nvim",
+    lazy = false,
+    version = "*", -- or branch = "dev", to use the latest commit
+    config = function()
+      require("screenkey").setup()
+    end,
+  },
 
   {
     "laytan/cloak.nvim",
@@ -66,5 +74,21 @@ return {
     "mg979/vim-visual-multi",
     branch = 'master'
   },
+
   "mfussenegger/nvim-dap",
+
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {},
+  },
+
+  {
+    "atiladefreitas/lazyclip",
+    config = function()
+      require("lazyclip").setup()
+    end,
+    keys = {
+      { "<leader>cy", ":lua require('lazyclip').show_clipboard()<CR>", { desc = "Open Clipboard Manager", noremap = true, silent = true } },
+    },
+  },
 }

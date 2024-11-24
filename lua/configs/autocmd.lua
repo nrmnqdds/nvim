@@ -82,7 +82,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   command = 'redrawstatus',
 })
 
-
 -- auto close brackets
 -- vim.api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
 

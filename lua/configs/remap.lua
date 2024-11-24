@@ -41,7 +41,7 @@ map({ "i", "v", "x" }, "<C-c>", "<Esc>", { desc = "Exit insert mode", noremap = 
 -- format file
 map("n", "<leader>f", function()
   -- vim.lsp.buf.format{ timeout = 2000 }
-  require("conform").format()
+  require("conform").format({ async = true, lsp_fallback = true, timeout_ms = 2500 })
 end, { desc = "Format file with Conform", noremap = true, silent = true })
 
 -- trouble plugin
@@ -53,7 +53,7 @@ end, { desc = "Format file with Conform", noremap = true, silent = true })
 -- map("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
 -- select all
-map("n", "<C-a>", "gg<S-v>G", { desc = "Select all", noremap = true, silent = true })
+map("n", "<C-a>", "gg<S-v>G<C-o>", { desc = "Select all", noremap = true, silent = true })
 
 -- Move to start/end of line
 map({ "n", "x", "o" }, "H", "^", { desc = "Move to start of line", noremap = true, silent = true })

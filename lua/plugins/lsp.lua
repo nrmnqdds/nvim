@@ -483,7 +483,7 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<C-j>"] = cmp.mapping.select_next_item(),
           ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
           -- ["<CR>"] = cmp.mapping.confirm({
           --   behavior = cmp.ConfirmBehavior.Replace,
           --   select = true,
@@ -504,12 +504,24 @@ return {
           { name = "emoji" },
           { name = "treesitter" },
         },
+        -- formatting = {
+        --   fields = { "kind", "abbr", "menu" },
+        --   format = function(entry, vim_item)
+        --     local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+        --     local strings = vim.split(kind.kind, "%s", { trimempty = true })
+        --     kind.kind = " " .. (strings[1] or "") .. " "
+        --     kind.menu = "    (" .. (strings[2] or "") .. ")"
+        --
+        --     return kind
+        --   end,
+        -- },
         formatting = {
+          -- fields = { "kind", "abbr", "menu" },
           format = function(entry, vim_item)
             local lspkind_ok, lspkind = pcall(require, "lspkind")
             if not lspkind_ok then
               -- From kind_icons array
-              vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+              vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item)
               -- Source
               vim_item.menu = ({
                 copilot = "[Copilot]",
@@ -522,6 +534,12 @@ return {
               return vim_item
             else
               -- From lspkind
+              -- local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+              -- local strings = vim.split(kind.kind, "%s")
+              -- kind.kind = " " .. (strings[1] or "") .. " "
+              -- kind.menu = "    [" .. (strings[2] or "") .. "]"
+              --
+              -- return kind
               return lspkind.cmp_format()(entry, vim_item)
             end
           end,
@@ -543,5 +561,4 @@ return {
       })
     end
   },
-
 }
