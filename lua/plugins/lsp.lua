@@ -247,11 +247,11 @@ return {
         on_attach = on_attach,
         handlers = _handlers,
       })
-      lsp.dartls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        handlers = _handlers,
-      })
+      -- lsp.dartls.setup({
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      --   handlers = _handlers,
+      -- })
       lsp.biome.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -483,7 +483,7 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<C-j>"] = cmp.mapping.select_next_item(),
           ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           -- ["<CR>"] = cmp.mapping.confirm({
           --   behavior = cmp.ConfirmBehavior.Replace,
           --   select = true,

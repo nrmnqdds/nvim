@@ -31,7 +31,7 @@ map("n", "<S-b>", "3b", { desc = "3b", noremap = true, silent = true })
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Enter normal mode in terminal", noremap = true, silent = true })
 
 -- paste without copying the text
-map({ "x", "v" }, "p", [["_dP]], { desc = "Paste without copying the text", noremap = true, silent = true })
+-- map({ "x", "v" }, "p", [["_dP]], { desc = "Paste without copying the text", noremap = true, silent = true })
 
 -- copy to system clipboard
 map({ "x", "v", "n" }, "<leader>y", [["+y]], { desc = "Copy to system clipboard", noremap = true, silent = true })
@@ -41,7 +41,7 @@ map({ "i", "v", "x" }, "<C-c>", "<Esc>", { desc = "Exit insert mode", noremap = 
 -- format file
 map("n", "<leader>f", function()
   -- vim.lsp.buf.format{ timeout = 2000 }
-  require("conform").format({ async = true, lsp_fallback = true, timeout_ms = 2500 })
+  require("conform").format({ async = true, lsp_fallback = true, timeout_ms = 2000 })
 end, { desc = "Format file with Conform", noremap = true, silent = true })
 
 -- trouble plugin
