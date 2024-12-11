@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- don't auto comment new line
 vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
+vim.api.nvim_create_autocmd("BufEnter", { command = [[setlocal formatoptions-=cro]] })
 
 -- go to last loc when opening a buffer
 -- this mean that when you open a file, you will be at the last position

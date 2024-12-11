@@ -44,6 +44,17 @@ return {
     end)
 
     telescope.setup({
+      extensions = {
+        fzf = {
+          override_generic_sorter = false,
+          override_file_sorter = true,
+          case_mode = "smart_case",
+        },
+        media_files = {
+          filetypes = { "png", "webp", "jpg", "jpeg" },
+          find_cmd = "rg",
+        },
+      },
       defaults = {
         path_display = {
           "filename_first",
