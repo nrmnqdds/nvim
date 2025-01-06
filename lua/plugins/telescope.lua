@@ -46,9 +46,10 @@ return {
     telescope.setup({
       extensions = {
         fzf = {
-          override_generic_sorter = false,
-          override_file_sorter = true,
-          case_mode = "smart_case",
+          fuzzy = true,                   -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true,    -- override the file sorter
+          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
         },
         media_files = {
           filetypes = { "png", "webp", "jpg", "jpeg" },
@@ -59,7 +60,7 @@ return {
         path_display = {
           "filename_first",
         },
-        previewer = false,
+        previewer = true,
         prompt_prefix = " " .. icons.ui.Telescope .. " ",
         selection_caret = icons.ui.BoldArrowRight .. " ",
         file_ignore_patterns = { "node_modules", "package-lock.json" },
@@ -80,5 +81,6 @@ return {
     telescope.load_extension("ui-select")
     telescope.load_extension("dap")
     telescope.load_extension("media_files")
+    telescope.load_extension("makefile_target")
   end
 }

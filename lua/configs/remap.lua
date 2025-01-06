@@ -124,6 +124,6 @@ map('i', '<Tab>', function()
   end
 end, { desc = "Super Tab", noremap = true, silent = true })
 
-vim.keymap.set("n", "<C-t>", function()
+map("n", "<C-t>", function()
   require("cloak").toggle()
 end, { noremap = true, silent = true })

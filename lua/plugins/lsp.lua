@@ -82,6 +82,58 @@ return {
           vim.diagnostic.goto_prev()
         end, vim.tbl_extend("force", bufopts, { desc = "✨lsp go to previous diagnostic" }))
 
+        -- vim.keymap.set(
+        --   "n",
+        --   "gd",
+        --   function()
+        --     vim.lsp.buf.definition({ reuse_win = false })
+        --   end,
+        --   vim.tbl_extend("force", bufopts, { desc = "✨lsp go to definition" })
+        -- )
+        vim.keymap.set(
+          "n",
+          "gw",
+          function()
+            -- Store the current position for later use with definition
+            local current_buf = vim.api.nvim_get_current_buf()
+            local current_win = vim.api.nvim_get_current_win()
+            local cursor_pos = vim.api.nvim_win_get_cursor(current_win)
+
+            -- Find another window if it exists
+            local target_win = nil
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+              if win ~= current_win then
+                target_win = win
+                break
+              end
+            end
+
+            if not target_win then
+              -- If no other window exists, create one
+              vim.cmd('vsplit')
+              -- vim.cmd.split({ mods = { vertical = true } })
+              target_win = vim.api.nvim_get_current_win()
+            else
+              -- Switch to the existing window
+              vim.api.nvim_set_current_win(target_win)
+            end
+
+            -- Switch back to original window temporarily
+            vim.api.nvim_set_current_win(current_win)
+
+            -- Get the definition location
+            local params = vim.lsp.util.make_position_params()
+            vim.lsp.buf_request(current_buf, 'textDocument/definition', params, function(_, result)
+              if result and result[1] then
+                -- Switch to target window and jump to definition
+                vim.api.nvim_set_current_win(target_win)
+                vim.lsp.util.jump_to_location(result[1], "utf-8")
+              end
+            end)
+          end,
+          vim.tbl_extend("force", bufopts, { desc = "✨lsp go to definition in other window" })
+        )
+
         vim.keymap.set(
           "n",
           "gd",
@@ -89,15 +141,6 @@ return {
             vim.lsp.buf.definition()
           end,
           vim.tbl_extend("force", bufopts, { desc = "✨lsp go to definition" })
-        )
-
-        vim.keymap.set(
-          "n",
-          "gt",
-          function()
-            vim.lsp.buf.type_definition()
-          end,
-          vim.tbl_extend("force", bufopts, { desc = "✨lsp go to type definition" })
         )
 
         vim.keymap.set(
@@ -122,7 +165,7 @@ return {
             -- vim.lsp.buf.references()
             builtin.lsp_references()
           end,
-          vim.tbl_extend("force", bufopts, { desc = "✨lsp go to references" })
+          vim.tbl_extend("force", bufopts, { desc = "✨lsp go to references", nowait = true })
         )
 
         vim.keymap.set(
@@ -183,6 +226,8 @@ return {
           'dockerls',
           'prismals',
           'marksman',
+          'html',
+          'templ',
           -- 'sqlls'
         },
       })
@@ -282,6 +327,16 @@ return {
         on_attach = on_attach,
         handlers = _handlers,
       })
+      lsp.templ.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        handlers = _handlers,
+      })
+      lsp.html.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        handlers = _handlers,
+      })
       lsp.prismals.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -338,6 +393,18 @@ return {
           },
           validate = true,
           completion = true,
+        },
+      })
+
+      -- configure Swift serve here since it is not installed via Mason
+      lsp.sourcekit.setup({
+        -- capabilities = capabilities,
+        capabilities = {
+          workspace = {
+            didChangeWatchedFiles = {
+              dynamicRegistration = true,
+            },
+          },
         },
       })
       -- lsp.sqlls.setup({

@@ -114,15 +114,6 @@ return {
 
             vim.keymap.set(
               "n",
-              "gt",
-              function()
-                vim.lsp.buf.type_definition()
-              end,
-              vim.tbl_extend("force", bufopts, { desc = "✨lsp go to type definition" })
-            )
-
-            vim.keymap.set(
-              "n",
               "gi",
               function()
                 -- vim.lsp.buf.implementation()
