@@ -77,7 +77,7 @@ return {
   {
     'dstein64/nvim-scrollview',
     opts = {}
-  }
+  },
 
   -- {
   --   "atiladefreitas/lazyclip",
@@ -88,5 +88,7 @@ return {
   --     { "<leader>cy", ":lua require('lazyclip').show_clipboard()<CR>", { desc = "Open Clipboard Manager", noremap = true, silent = true } },
   --   },
   -- },
+  --
+  "b0o/schemastore.nvim",
 
 }

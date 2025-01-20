@@ -221,6 +221,7 @@ return {
           'tailwindcss',
           'volar',
           'yamlls',
+          'jsonls',
           'lua_ls',
           'gopls',
           'dockerls',
@@ -362,6 +363,29 @@ return {
         },
         handlers = _handlers,
       })
+      lsp.jsonls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        handlers = _handlers,
+        settings = {
+          json = {
+            schemaStore = {
+              -- You must disable built-in schemaStore support if you want to use
+              -- this plugin and its advanced options like `ignore`.
+              enable = false,
+              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+              url = "",
+            },
+            schemas = require('schemastore').json.schemas(),
+          },
+          format = {
+            enable = true,
+            singleQuote = false,
+            bracketSpacing = true,
+          },
+          validate = { enable = true },
+        },
+      })
       lsp.yamlls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -377,22 +401,29 @@ return {
 
         settings = {
           yaml = {
-            schemas = {
-              ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-              ["https://json.schemastore.org/pre-commit-config.json"] = "/.pre-commit-config.*",
-              ["https://json.schemastore.org/catalog-info.json"] = ".backstage/*.yaml",
-              ["https://raw.githubusercontent.com/iterative/dvcyaml-schema/master/schema.json"] = "**/dvc.yaml",
-              ["https://json.schemastore.org/swagger-2.0.json"] = "**/swagger.yaml",
-              -- ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml"] = "/*"
+            schemaStore = {
+              -- You must disable built-in schemaStore support if you want to use
+              -- this plugin and its advanced options like `ignore`.
+              enable = false,
+              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+              url = "",
             },
+            schemas = require('schemastore').yaml.schemas(),
+            -- schemas = {
+            --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+            --   ["https://json.schemastore.org/pre-commit-config.json"] = "/.pre-commit-config.*",
+            --   ["https://json.schemastore.org/catalog-info.json"] = ".backstage/*.yaml",
+            --   ["https://raw.githubusercontent.com/iterative/dvcyaml-schema/master/schema.json"] = "**/dvc.yaml",
+            --   ["https://json.schemastore.org/swagger-2.0.json"] = "**/swagger.yaml",
+            --   -- ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml"] = "/*"
+            -- },
           },
-          format = {
-            enable = true,
-            singleQuote = false,
-            bracketSpacing = true,
-          },
-          validate = true,
-          completion = true,
+          -- format = {
+          --   enable = true,
+          --   singleQuote = false,
+          --   bracketSpacing = true,
+          -- },
+          validate = { enable = true },
         },
       })
 
@@ -550,7 +581,10 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<C-j>"] = cmp.mapping.select_next_item(),
           ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-y>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true
+          }),
           -- ["<CR>"] = cmp.mapping.confirm({
           --   behavior = cmp.ConfirmBehavior.Replace,
           --   select = true,
