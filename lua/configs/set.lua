@@ -40,6 +40,7 @@ vim.opt.smoothscroll = true
 
 vim.opt.spell = false
 
+-- views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
 
 -- if a file is a .env or .envrc file, set the filetype to sh

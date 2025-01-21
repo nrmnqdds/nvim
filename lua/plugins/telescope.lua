@@ -12,14 +12,28 @@ return {
     "nvim-telescope/telescope-media-files.nvim",
     "kkharji/sqlite.lua",
   },
-  keys = {
-    { "<leader>pf", require("telescope.builtin").find_files }
-  },
   config = function()
     local builtin = require('telescope.builtin')
     local action_state = require('telescope.actions.state')
     local telescope = require("telescope")
     local icons = require("configs.icons")
+
+    -- search current buffer
+    vim.keymap.set("n", "<C-f>", builtin.current_buffer_fuzzy_find,
+      { desc = "Search current buffer", noremap = true, silent = true })
+
+    -- live grep
+    vim.keymap.set("n", "<C-l>", builtin.live_grep, { desc = "Live grep", noremap = true, silent = true })
+
+    vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find files", noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>pt',
+      function()
+        builtin.lsp_document_symbols({
+          initial_mode = "normal",
+          symbols = 'function'
+        })
+      end,
+      { desc = "Find functions", noremap = true, silent = true })
 
     vim.keymap.set('n', '<C-e>', function()
       builtin.buffers({

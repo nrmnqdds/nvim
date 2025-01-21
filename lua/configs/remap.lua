@@ -71,13 +71,6 @@ map("i", "<C-S-Enter>", "<Esc>O", { desc = "Enter new line above in insert mode"
 map({ "n", "v" }, "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
   { desc = "Search and replace", noremap = true, silent = true })
 
--- search current buffer
-map("n", "<C-f>", ":Telescope current_buffer_fuzzy_find<CR>",
-  { desc = "Search current buffer", noremap = true, silent = true })
-
--- live grep
-map("n", "<C-l>", ":Telescope live_grep<CR>", { desc = "Live grep", noremap = true, silent = true })
-
 -- Split line with X
 map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>",
   { desc = "Split line", noremap = true, silent = true })
