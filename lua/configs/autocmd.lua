@@ -83,9 +83,27 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   command = 'redrawstatus',
 })
 
--- auto close brackets
--- vim.api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  callback = function(ev)
+    local opts = { silent = true, buffer = ev.buf }
 
+    vim.keymap.set("n", "<leader>la",
+      function()
+        require("tiny-code-action").code_action()
+      end,
+      opts)
+    vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "K", function()
+      vim.lsp.buf.hover({ border = "rounded" })
+    end, opts)
+
+    -- telescope
+    vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts)
+    vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts)
+    vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
+  end,
+})
 
 -- Automatically opens vim apm when vim starts
 -- vim.api.nvim_create_autocmd("VimEnter", {
