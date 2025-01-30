@@ -24,6 +24,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 local get_option = vim.filetype.get_option
+
 vim.filetype.get_option = function(filetype, option)
   return option == "commentstring"
       and require("ts_context_commentstring.internal").calculate_commentstring()
@@ -56,6 +57,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   nested = true,
 })
 
+-- rapatkan statusline to the bottom
 vim.api.nvim_create_autocmd('CmdlineEnter', {
   group = vim.api.nvim_create_augroup(
     'cmdheight_1_on_cmdlineenter',
@@ -84,6 +86,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   command = 'redrawstatus',
 })
 
+-- lsp attach
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
@@ -109,7 +112,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       opts)
     vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts)
     vim.keymap.set("n", "K", function()
-      vim.lsp.buf.hover({ border = "rounded" })
+      vim.lsp.buf.hover()
     end, opts)
 
     -- telescope
@@ -117,9 +120,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts)
     vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
 
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ float = { border = "rounded" } }) end, opts)
 
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ float = { border = "rounded" } }) end, opts)
 
     vim.keymap.set(
       "n",
