@@ -40,6 +40,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
         min = vim.diagnostic.severity.WARN
       }
     },
+    float = { border = "rounded" },
     update_in_insert = true,
   }
 )
@@ -88,6 +89,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local opts = { silent = true, buffer = ev.buf }
 
+    --- toggle diagnostics
+    vim.g.diagnostics_visible = true
+
+    local function toggle_diagnostics()
+      if vim.g.diagnostics_visible then
+        vim.g.diagnostics_visible = false
+        vim.diagnostic.enable(false)
+      else
+        vim.g.diagnostics_visible = true
+        vim.diagnostic.enable()
+      end
+    end
+
     vim.keymap.set("n", "<leader>la",
       function()
         require("tiny-code-action").code_action()
@@ -102,6 +116,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts)
     vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts)
     vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
+
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+
+    vim.keymap.set(
+      "n",
+      "<leader>l",
+      function()
+        toggle_diagnostics()
+      end,
+      opts)
   end,
 })
 

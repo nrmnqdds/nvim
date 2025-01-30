@@ -45,7 +45,6 @@ return {
           json = { "jq" },
           markdown = { "markdownfmt" },
           sql = { "sleek" },
-          templ = { "templ" },
         },
       })
 
