@@ -33,3 +33,10 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true, notify = false },
 })
+
+-- vim.lsp.start_client({
+--   name = 'cairo_ls',
+--   -- cmd = { 'scarb', 'cairo-language-server' },
+--   cmd = { '/Users/qud/.asdf/shims/scarb', 'cairo-language-server' },
+--   root_dir = vim.fs.root(0, { 'scarb.lock' }),
+-- })

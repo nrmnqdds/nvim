@@ -124,13 +124,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ float = { border = "rounded" } }) end, opts)
 
-    vim.keymap.set(
-      "n",
-      "<leader>l",
-      function()
-        toggle_diagnostics()
-      end,
-      opts)
+    vim.keymap.set("n", "<leader>ld", function()
+      vim.diagnostic.open_float({ scope = "line" })
+    end, opts)
+
+    -- vim.keymap.set(
+    --   "n",
+    --   "<leader>l",
+    --   function()
+    --     toggle_diagnostics()
+    --   end,
+    --   opts)
   end,
 })
 

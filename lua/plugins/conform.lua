@@ -46,6 +46,16 @@ return {
           markdown = { "markdownfmt" },
           sql = { "sleek" },
         },
+        cairo = function(bufnr)
+          if vim.api.nvim_buf_get_option(bufnr, "filetype") == "cairo" then
+            return {
+              command = "cairo-format",
+              format = {
+                command = "cairo-format",
+              },
+            }
+          end
+        end
       })
 
       local function find_closest_config_file(config_names, current_file)

@@ -39,7 +39,7 @@ return {
         "yamlls",
         "biome",
         "marksman",
-        -- "cairo_ls"
+        "rust_analyzer"
       }
 
       require("mason").setup({
@@ -61,23 +61,6 @@ return {
       }
 
       local lsp = require("lspconfig")
-      local configs = require("lspconfig.configs")
-
-      if not configs.cairo_ls then
-        configs.cairo_ls = {
-          default_config = {
-            capabilities = capabilities,
-            handlers = _handlers,
-            cmd = { 'scarb', 'cairo-language-server' },
-            root_dir = lsp.util.root_pattern('.git'),
-            filetypes = { 'cairo' },
-          },
-        }
-      end
-      lsp.cairo_ls.setup {
-        capabilities = capabilities,
-        handlers = _handlers,
-      }
 
       require("mason-lspconfig").setup_handlers({
         function(server_name)
@@ -86,18 +69,15 @@ return {
             handlers = _handlers,
           })
         end,
-
-
-        -- ["cairo_ls"] = function()
-        --   lsp.cairo_ls.setup({
-        --     capabilities = capabilities,
-        --     handlers = _handlers,
-        --     filetypes = { "cairo" },
-        --     cmd = { 'scarb', 'cairo-language-server' },
-        --     root_dir = require("lspconfig").util.root_pattern('.git'),
-        --   })
-        -- end,
-
+        ["cairo_ls"] = function()
+          lsp.cairo_ls.setup({
+            capabilities = capabilities,
+            handlers = _handlers,
+            filetypes = { "cairo" },
+            cmd = { 'scarb', 'cairo-language-server' },
+            root_dir = require("lspconfig").util.root_pattern('.git'),
+          })
+        end,
         ["cssls"] = function()
           lsp.cssls.setup({
             capabilities = capabilities,
@@ -238,6 +218,13 @@ return {
                 importModuleSpecifierPreference = "non-relative",
               },
             },
+          })
+        end,
+        ["rust_analyzer"] = function()
+          lsp.rust_analyzer.setup({
+            filetypes = { "rust" },
+            capabilities = capabilities,
+            handlers = _handlers,
           })
         end,
         ["biome"] = function()
