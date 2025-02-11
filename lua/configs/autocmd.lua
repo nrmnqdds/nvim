@@ -46,6 +46,25 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   }
 )
 
+-- change line number color to diagnostic
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
+    },
+    numhl = {
+      [vim.diagnostic.severity.WARN] = 'WarningMsg',
+      [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+
+    },
+  },
+})
+
 -- Automatically load session
 vim.api.nvim_create_autocmd("VimEnter", {
   group = vim.api.nvim_create_augroup("restore_session", { clear = true }),
@@ -95,15 +114,60 @@ vim.api.nvim_create_autocmd("LspAttach", {
     --- toggle diagnostics
     vim.g.diagnostics_visible = true
 
-    local function toggle_diagnostics()
-      if vim.g.diagnostics_visible then
-        vim.g.diagnostics_visible = false
-        vim.diagnostic.enable(false)
-      else
-        vim.g.diagnostics_visible = true
-        vim.diagnostic.enable()
-      end
-    end
+    -- local function toggle_diagnostics()
+    --   if vim.g.diagnostics_visible then
+    --     vim.g.diagnostics_visible = false
+    --     vim.diagnostic.enable(false)
+    --   else
+    --     vim.g.diagnostics_visible = true
+    --     vim.diagnostic.enable()
+    --   end
+    -- end
+
+    vim.keymap.set(
+      "n",
+      "gw",
+      function()
+        -- Store the current position for later use with definition
+        local current_buf = vim.api.nvim_get_current_buf()
+        local current_win = vim.api.nvim_get_current_win()
+        local cursor_pos = vim.api.nvim_win_get_cursor(current_win)
+
+        -- Find another window if it exists
+        local target_win = nil
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          if win ~= current_win then
+            target_win = win
+            break
+          end
+        end
+
+        if not target_win then
+          -- If no other window exists, create one
+          vim.cmd('vsplit')
+          -- vim.cmd.split({ mods = { vertical = true } })
+          target_win = vim.api.nvim_get_current_win()
+        else
+          -- Switch to the existing window
+          vim.api.nvim_set_current_win(target_win)
+        end
+
+        -- Switch back to original window temporarily
+        vim.api.nvim_set_current_win(current_win)
+
+        -- Get the definition location
+        local params = vim.lsp.util.make_position_params()
+        vim.lsp.buf_request(current_buf, 'textDocument/definition', params, function(_, result)
+          if result and result[1] then
+            -- Switch to target window and jump to definition
+            vim.api.nvim_set_current_win(target_win)
+            vim.lsp.util.jump_to_location(result[1], "utf-8")
+          end
+        end)
+      end,
+      vim.tbl_extend("force", opts, { desc = "✨lsp go to definition in other window" })
+    )
+
 
     vim.keymap.set("n", "<leader>la",
       function()

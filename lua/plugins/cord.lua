@@ -3,7 +3,6 @@ return {
     'vyfor/cord.nvim',
     -- build = './build',
     build = ':Cord update',
-    event = 'VeryLazy',
     opts = {
       log_level = vim.log.levels.ERROR,
       editor = {
@@ -11,6 +10,9 @@ return {
         client = 'neovim',                                                                        -- vim, neovim, lunarvim, nvchad, astronvim or your application's client id
         tooltip = 'The Superior Text Editor',                                                     -- Text to display when hovering over the editor's image
       },
+      idle = {
+        enabled = false, -- Enable/disable the idle status
+      }
     }
   },
 }
