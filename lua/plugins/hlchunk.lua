@@ -16,8 +16,10 @@ return {
         duration = 100,
       },
       indent = {
-        enable = true
-        -- ...
+        enable = true,
+        style = {
+          { fg = "#27272a" },
+        },
       }
     }
   },

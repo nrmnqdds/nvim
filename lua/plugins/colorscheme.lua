@@ -9,10 +9,10 @@ return {
         -- other configs
         on_colors = function(colors)
           colors.border = "#565f89"
+          colors.bg = "#09090b"
         end
       })
       vim.cmd("colorscheme tokyonight-night")
     end,
   },
-
 }

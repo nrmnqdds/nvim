@@ -76,8 +76,8 @@ map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>
   { desc = "Split line", noremap = true, silent = true })
 
 -- Navigate buffers
-map("n", "<C-j>", ":bnext<CR>", { desc = "Navigate buffers", noremap = true, silent = true })
-map("n", "<C-k>", ":bprevious<CR>", { desc = "Navigate buffers", noremap = true, silent = true })
+map("n", "<C-j>", ":bprevious<CR>", { desc = "Navigate buffers", noremap = true, silent = true })
+map("n", "<C-k>", ":bnext<CR>", { desc = "Navigate buffers", noremap = true, silent = true })
 map("n", "<leader>dd", ":bd<CR>", { desc = "Close current buffer", noremap = true, silent = true })
 map("n", "<leader>da", ":%bd|e#|bd#<CR>", { desc = "Close all buffer", noremap = true, silent = true })
 
