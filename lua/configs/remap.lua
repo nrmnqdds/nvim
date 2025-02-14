@@ -76,10 +76,14 @@ map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>
   { desc = "Split line", noremap = true, silent = true })
 
 -- Navigate buffers
-map("n", "<C-j>", "<Cmd>BufferPrevious<CR>", { desc = "Navigate buffers", noremap = true, silent = true })
-map("n", "<C-k>", "<Cmd>BufferNext<CR>", { desc = "Navigate buffers", noremap = true, silent = true })
+map("n", "<C-j>", "<Cmd>BufferPrevious<CR>", { desc = "Navigate previous buffers", noremap = true, silent = true })
+map("n", "<C-k>", "<Cmd>BufferNext<CR>", { desc = "Navigate next buffers", noremap = true, silent = true })
+map("n", "<C-S-j>", "<Cmd>BufferMovePrevious<CR>",
+  { desc = "Re-order buffer to previous", noremap = true, silent = true })
+map("n", "<C-S-k>", "<Cmd>BufferMoveNext<CR>", { desc = "Re-order buffer to next", noremap = true, silent = true })
 map("n", "<leader>dd", "<Cmd>BufferClose<CR>", { desc = "Close current buffer", noremap = true, silent = true })
-map("n", "<leader>da", "<Cmd>BufferCloseAllButCurrent<CR>", { desc = "Close all buffer", noremap = true, silent = true })
+map("n", "<leader>da", "<Cmd>BufferCloseAllButCurrent<CR>",
+  { desc = "Close all buffer but current", noremap = true, silent = true })
 
 -- Close highlighted search
 map("n", "<Esc>", ":nohlsearch<CR>", { desc = "Close highlighted search", noremap = true, silent = true })
