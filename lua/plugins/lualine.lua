@@ -78,6 +78,7 @@ return {
       local config = {
         options = {
           theme = 'tokyonight'
+          -- theme = 'github_dark_default'
         },
         sections = {
           lualine_c = { {

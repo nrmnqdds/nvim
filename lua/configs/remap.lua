@@ -75,7 +75,7 @@ map({ "n", "v" }, "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Le
 map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>",
   { desc = "Split line", noremap = true, silent = true })
 
--- Navigate buffers
+-- Navigate buffers with barbar.nvim
 map("n", "<C-j>", "<Cmd>BufferPrevious<CR>", { desc = "Navigate previous buffers", noremap = true, silent = true })
 map("n", "<C-k>", "<Cmd>BufferNext<CR>", { desc = "Navigate next buffers", noremap = true, silent = true })
 map("n", "<C-S-j>", "<Cmd>BufferMovePrevious<CR>",
