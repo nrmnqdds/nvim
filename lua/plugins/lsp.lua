@@ -19,7 +19,9 @@ return {
       },
     },
     config = function()
-      local capabilities = require("blink.cmp").get_lsp_capabilities()
+      -- local _capabilities = require("blink.cmp").get_lsp_capabilities()
+      -- local _capabilities = vim.lsp.protocol.make_client_capabilities()
+      local _capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       local servers = {
         -- "angularls", -- NOTE: disabled for now. @see https://github.com/neovim/nvim-lspconfig/issues/3593
@@ -65,13 +67,13 @@ return {
       require("mason-lspconfig").setup_handlers({
         function(server_name)
           require("lspconfig")[server_name].setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
           })
         end,
         ["cairo_ls"] = function()
           lsp.cairo_ls.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
             filetypes = { "cairo" },
             cmd = { 'scarb', 'cairo-language-server' },
@@ -80,7 +82,7 @@ return {
         end,
         ["cssls"] = function()
           lsp.cssls.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
             filetypes = { "css", "scss", "less" },
             settings = {
@@ -101,7 +103,7 @@ return {
         end,
         ["yamlls"] = function()
           lsp.jsonls.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
             settings = {
               json = {
@@ -126,7 +128,7 @@ return {
         ["jsonls"] = function()
           -- NOTE: to add new schemas, find url here https://www.schemastore.org/json/
           lsp.jsonls.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
             settings = {
               json = {
@@ -150,7 +152,7 @@ return {
         end,
         ["gopls"] = function()
           lsp.gopls.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
             settings = {
               gopls = {
@@ -165,7 +167,7 @@ return {
         end,
         ["lua_ls"] = function()
           lsp.lua_ls.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
             filetypes = { "lua" },
             on_init = function(client)
@@ -211,7 +213,7 @@ return {
         end,
         ["ts_ls"] = function()
           require("lspconfig").ts_ls.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
             init_options = {
               preferences = {
@@ -223,19 +225,19 @@ return {
         ["rust_analyzer"] = function()
           lsp.rust_analyzer.setup({
             filetypes = { "rust" },
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
           })
         end,
         ["biome"] = function()
           lsp.biome.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
           })
         end,
         ["marksman"] = function()
           lsp.marksman.setup({
-            capabilities = capabilities,
+            capabilities = _capabilities,
             handlers = _handlers,
           })
         end,
