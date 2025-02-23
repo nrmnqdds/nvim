@@ -37,7 +37,18 @@ return {
     }
   },
 
-  'JoosepAlviste/nvim-ts-context-commentstring',
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
+  },
+
+  -- {
+  --   'JoosepAlviste/nvim-ts-context-commentstring',
+  --   opts = {}
+  -- },
+
   {
     "windwp/nvim-ts-autotag",
     config = function()

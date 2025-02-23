@@ -23,13 +23,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-local get_option = vim.filetype.get_option
-
-vim.filetype.get_option = function(filetype, option)
-  return option == "commentstring"
-      and require("ts_context_commentstring.internal").calculate_commentstring()
-      or get_option(filetype, option)
-end
+-- local get_option = vim.filetype.get_option
+--
+-- vim.filetype.get_option = function(filetype, option)
+--   return option == "commentstring"
+--       and require("ts_context_commentstring.internal").calculate_commentstring()
+--       or get_option(filetype, option)
+-- end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics,
@@ -180,9 +180,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, opts)
 
     -- telescope
-    vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts)
-    vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts)
-    vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts) -- vim.lsp.buf.implementation()
+    vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)      -- vim.lsp.buf.references()
 
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ float = { border = "rounded" } }) end, opts)
 

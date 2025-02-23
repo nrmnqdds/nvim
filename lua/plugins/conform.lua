@@ -4,7 +4,7 @@ return {
     event = { "LspAttach", "BufReadPost", "BufNewFile" },
     config = function()
       local formatter_data = {
-        prettier = {
+        prettierd = {
           ".prettierrc",
           ".prettierrc.json",
           ".prettierrc.yml",
@@ -18,27 +18,30 @@ return {
           "prettier.config.cjs",
           "prettier.config.mjs",
         },
-        eslint = {
-          ".eslintrc",
-          ".eslintrc.json",
-          "eslint.config.mjs",
-        },
         ["biome-check"] = {
           "biome.json",
           "biome.jsonc",
         },
       }
       require("conform").setup({
+        formatters = {
+          prettierd = {
+            require_cwd = true
+          },
+          ["biome-check"] = {
+            require_cwd = true
+          }
+        },
         formatters_by_ft = {
           lua = { "stylua", lsp_format = "fallback" },
           -- Conform will run the first available formatter
           rust = { "rustfmt", lsp_format = "fallback" },
-          javascript = { "biome-check", "prettier" },
-          typescript = { "biome-check", "prettier" },
+          javascript = { "biome-check", "prettierd" },
+          typescript = { "biome-check", "prettierd" },
           astro = { "biome-check", "prettier" },
           vue = { "biome-check", "prettier" },
-          javascriptreact = { "biome-check", "prettier" },
-          typescriptreact = { "biome-check", "prettier" },
+          javascriptreact = { "biome-check", "prettierd" },
+          typescriptreact = { "biome-check", "prettierd" },
           go = { "gofumpt", "goimports" },
           dart = { "dart_format" },
           yaml = { "yamlfmt" },
@@ -47,7 +50,8 @@ return {
           sql = { "sleek" },
         },
         cairo = function(bufnr)
-          if vim.api.nvim_buf_get_option(bufnr, "filetype") == "cairo" then
+          -- if vim.api.nvim_buf_get_option(bufnr, "filetype") == "cairo" then
+          if vim.api.nvim_get_option_value("filetype", { filetype = "cairo", buf = 0 }) then
             return {
               command = "cairo-format",
               format = {
@@ -108,7 +112,7 @@ return {
       end, {})
 
       vim.api.nvim_create_user_command("FormatWithPrettier", function()
-        require("conform").format({ async = true, lsp_format = "never", formatters = { "prettier" } })
+        require("conform").format({ async = true, lsp_format = "never", formatters = { "prettierd" } })
       end, {})
     end
   },

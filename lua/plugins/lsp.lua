@@ -37,7 +37,7 @@ return {
         "lua_ls",
         "prismals",
         "tailwindcss",
-        "ts_ls",
+        "vtsls",
         "yamlls",
         "biome",
         "marksman",
@@ -211,8 +211,8 @@ return {
             -- },
           })
         end,
-        ["ts_ls"] = function()
-          require("lspconfig").ts_ls.setup({
+        ["vtsls"] = function()
+          require("lspconfig").vtsls.setup({
             capabilities = _capabilities,
             handlers = _handlers,
             init_options = {
