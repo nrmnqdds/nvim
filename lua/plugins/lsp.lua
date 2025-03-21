@@ -30,7 +30,7 @@ return {
         -- "cssmodules_ls",
         "dockerls",
         -- "emmet_language_server",
-        "eslint", -- NOTE: should probably add the root util...
+        -- "eslint", -- NOTE: should probably add the root util...
         "gopls",
         "html",
         "jsonls",
@@ -231,6 +231,12 @@ return {
         end,
         ["biome"] = function()
           lsp.biome.setup({
+            capabilities = _capabilities,
+            handlers = _handlers,
+          })
+        end,
+        ["eslint_d"] = function()
+          lsp.eslint_d.setup({
             capabilities = _capabilities,
             handlers = _handlers,
           })

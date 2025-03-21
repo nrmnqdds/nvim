@@ -113,21 +113,21 @@ map("n", "<leader>cc", function() require("screenkey").toggle() end,
 
 map("n", "@", "@a", { desc = "Play macros", noremap = true, silent = true })
 
-map('i', '<Tab>', function()
-  if require("minuet.virtualtext").action.is_visible() then
-    require("minuet.virtualtext").action.accept()
-  else
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
-  end
-end, { desc = "Super Tab", noremap = true, silent = true })
-
 -- map('i', '<Tab>', function()
---   if require("copilot.suggestion").is_visible() then
---     require("copilot.suggestion").accept()
+--   if require("minuet.virtualtext").action.is_visible() then
+--     require("minuet.virtualtext").action.accept()
 --   else
 --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
 --   end
 -- end, { desc = "Super Tab", noremap = true, silent = true })
+
+map('i', '<Tab>', function()
+  if require("copilot.suggestion").is_visible() then
+    require("copilot.suggestion").accept()
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+  end
+end, { desc = "Super Tab", noremap = true, silent = true })
 
 map("n", "<C-t>", function()
   require("cloak").toggle()

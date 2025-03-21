@@ -49,8 +49,7 @@ return {
           markdown = { "markdownfmt" },
           sql = { "sleek" },
         },
-        cairo = function(bufnr)
-          -- if vim.api.nvim_buf_get_option(bufnr, "filetype") == "cairo" then
+        cairo = function(_)
           if vim.api.nvim_get_option_value("filetype", { filetype = "cairo", buf = 0 }) then
             return {
               command = "cairo-format",
@@ -103,17 +102,17 @@ return {
         conform.format({ async = false, lsp_format = "never", formatters = { formatter_to_use } })
       end, {})
 
-      vim.api.nvim_create_user_command("FormatWithLsp", function()
-        require("conform").format({ async = true, lsp_format = "prefer" })
-      end, {})
-
-      vim.api.nvim_create_user_command("FormatWithBiome", function()
-        require("conform").format({ async = true, lsp_format = "never", formatters = { "biome-check" } })
-      end, {})
-
-      vim.api.nvim_create_user_command("FormatWithPrettier", function()
-        require("conform").format({ async = true, lsp_format = "never", formatters = { "prettierd" } })
-      end, {})
+      -- vim.api.nvim_create_user_command("FormatWithLsp", function()
+      --   require("conform").format({ async = true, lsp_format = "prefer" })
+      -- end, {})
+      --
+      -- vim.api.nvim_create_user_command("FormatWithBiome", function()
+      --   require("conform").format({ async = true, lsp_format = "never", formatters = { "biome-check" } })
+      -- end, {})
+      --
+      -- vim.api.nvim_create_user_command("FormatWithPrettier", function()
+      --   require("conform").format({ async = true, lsp_format = "never", formatters = { "prettierd" } })
+      -- end, {})
     end
   },
 

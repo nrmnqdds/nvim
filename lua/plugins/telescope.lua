@@ -26,13 +26,6 @@ return {
     vim.keymap.set("n", "<C-l>", builtin.live_grep, { desc = "Live grep", noremap = true, silent = true })
 
     vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find files", noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>pt',
-      function()
-        telescope.extensions.aerial.aerial({
-          initial_mode = "normal",
-        })
-      end,
-      { desc = "Find functions", noremap = true, silent = true })
 
     vim.keymap.set('n', '<C-e>', function()
       builtin.buffers({
@@ -68,22 +61,6 @@ return {
           filetypes = { "png", "webp", "jpg", "jpeg" },
           find_cmd = "rg",
         },
-        aerial = {
-          -- Set the width of the first two columns (the second
-          -- is relevant only when show_columns is set to 'both')
-          col1_width = 4,
-          col2_width = 30,
-          -- How to format the symbols
-          format_symbol = function(symbol_path, filetype)
-            if filetype == "json" or filetype == "yaml" then
-              return table.concat(symbol_path, ".")
-            else
-              return symbol_path[#symbol_path]
-            end
-          end,
-          -- Available modes: symbols, lines, both
-          show_columns = "both",
-        },
       },
       defaults = {
         path_display = {
@@ -111,6 +88,5 @@ return {
     telescope.load_extension("dap")
     telescope.load_extension("media_files")
     telescope.load_extension("makefile_target")
-    telescope.load_extension("aerial")
   end
 }
