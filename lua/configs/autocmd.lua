@@ -202,6 +202,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Set DiagnosticUnnecessary to gray
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#575e89" })
+
 -- Automatically opens vim apm when vim starts
 -- vim.api.nvim_create_autocmd("VimEnter", {
 --   callback = function()

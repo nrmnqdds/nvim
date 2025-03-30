@@ -30,7 +30,7 @@ return {
         -- "cssmodules_ls",
         "dockerls",
         -- "emmet_language_server",
-        -- "eslint", -- NOTE: should probably add the root util...
+        "eslint", -- NOTE: should probably add the root util...
         "gopls",
         "html",
         "jsonls",
@@ -45,7 +45,14 @@ return {
       }
 
       require("mason").setup({
-        ui = { border = "rounded" },
+        ui = {
+          border = "rounded",
+          keymaps = {
+            ---@since 1.0.0
+            -- Keymap to expand a package
+            toggle_package_expand = "E",
+          },
+        },
       })
 
       require("mason-lspconfig").setup({
@@ -223,22 +230,38 @@ return {
           })
         end,
         ["rust_analyzer"] = function()
-          lsp.rust_analyzer.setup({
-            filetypes = { "rust" },
-            capabilities = _capabilities,
-            handlers = _handlers,
-          })
+          -- use rustacean.nvim
         end,
+        -- ["rust_analyzer"] = function()
+        --   lsp.rust_analyzer.setup({
+        --     filetypes = { "rust" },
+        --     capabilities = _capabilities,
+        --     handlers = _handlers,
+        --   })
+        -- end,
         ["biome"] = function()
           lsp.biome.setup({
             capabilities = _capabilities,
             handlers = _handlers,
           })
         end,
-        ["eslint_d"] = function()
-          lsp.eslint_d.setup({
+        ["eslint"] = function()
+          lsp.eslint.setup({
             capabilities = _capabilities,
             handlers = _handlers,
+            settings = {
+              -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+              workingDirectories = { mode = "location" },
+              validate = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+              experimental = {
+                -- https://github.com/Microsoft/vscode-eslint
+                -- use flat config format
+                useFlatConfig = false,
+              },
+              format = {
+                enable = true,
+              }
+            }
           })
         end,
         ["marksman"] = function()
